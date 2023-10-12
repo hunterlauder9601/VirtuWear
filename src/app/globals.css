@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ccButtonMain {
+  @apply py-2 px-4 bg-primary rounded-3xl hover:bg-primary-focus hover:scale-110 transition-all ease-in mb-4 font-bold text-lg
+}
+
+
