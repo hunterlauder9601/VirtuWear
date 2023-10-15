@@ -1,14 +1,87 @@
 import React, { useState } from "react";
 import { HiArrowLeft, HiArrowRight, HiReply } from "react-icons/hi";
+import { ConfiguratorProvider, useConfigurator } from "@/app/contexts/Customization";
+
 
 const Configurator = () => {
   const [selectedPart, setSelectedPart] = useState(null);
+  const {
+    headItem,
+    setHeadItem,
+    headSelectedColor,
+    setHeadSelectedColor,
+    torsoItem,
+    setTorsoItem,
+    torsoSelectedColor,
+    setTorsoSelectedColor,
+    legsItem,
+    setLegsItem,
+    legsSelectedColor,
+    setLegsSelectedColor,
+    feetItem,
+    setFeetItem,
+    feetSelectedColor,
+    setFeetSelectedColor,
+  } = useConfigurator(); // Use the custom hook
+
+  // const [selectedPart, setSelectedPart] = useState(null);
+
+  // // Separate state variables for each section
+  // const [headItem, setHeadItem] = useState(null);
+  // const [headSelectedColor, setHeadSelectedColor] = useState(null);
+
+  // const [torsoItem, setTorsoItem] = useState(null);
+  // const [torsoSelectedColor, setTorsoSelectedColor] = useState(null);
+
+  // const [legsItem, setLegsItem] = useState(null);
+  // const [legsSelectedColor, setLegsSelectedColor] = useState(null);
+
+  // const [feetItem, setFeetItem] = useState(null);
+  // const [feetSelectedColor, setFeetSelectedColor] = useState(null);
 
   const partsOptions = {
-    HEAD: { items: ["ItemName"], colors: ["Red", "Blue"] },
-    TORSO: { items: ["ItemName"], colors: ["Red", "Blue"] },
-    LEGS: { items: ["ItemName"], colors: ["Red", "Blue"] },
-    FEET: { items: ["ItemName"], colors: ["Red", "Blue"] },
+    HEAD: { items: ["ItemName"], colors: ["#683434", "#1a5e1a", "#659994", "#896599", "#ffa500", "#59555b", "#222222", "#ececec"] },
+    TORSO: { items: ["ItemName"], colors: ["#683434", "#1a5e1a", "#659994", "#896599", "#ffa500", "#59555b", "#222222", "#ececec"] },
+    LEGS: { items: ["ItemName"], colors: ["#683434", "#1a5e1a", "#659994", "#896599", "#ffa500", "#59555b", "#222222", "#ececec"] },
+    FEET: { items: ["ItemName"], colors: ["#683434", "#1a5e1a", "#659994", "#896599", "#ffa500", "#59555b", "#222222", "#ececec"] },
+  };
+
+  const handleColorSelect = (color) => {
+    switch (selectedPart) {
+      case "HEAD":
+        setHeadSelectedColor(color);
+        break;
+      case "TORSO":
+        setTorsoSelectedColor(color);
+        break;
+      case "LEGS":
+        setLegsSelectedColor(color);
+        break;
+      case "FEET":
+        setFeetSelectedColor(color);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleItemSelect = (item) => {
+    switch (selectedPart) {
+      case "HEAD":
+        setHeadItem(item);
+        break;
+      case "TORSO":
+        setTorsoItem(item);
+        break;
+      case "LEGS":
+        setLegsItem(item);
+        break;
+      case "FEET":
+        setFeetItem(item);
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -40,18 +113,40 @@ const Configurator = () => {
                   {selectedPart} ITEMS
                 </h1>
                 {partsOptions[selectedPart].items.map((item) => (
-                  <div className="my-4 ml-2 flex items-center gap-4" key={item}>
-                    <HiArrowLeft size={20} />
+                  <div
+                    className='my-4 ml-2 flex items-center gap-4'
+                    key={item}
+                    onClick={() => handleItemSelect(item)}
+                  >
+                    <HiArrowLeft size={20} className='cursor-pointer'/>
                     {item}
-                    <HiArrowRight size={20} />
+                    <HiArrowRight size={20} className='cursor-pointer'/>
                   </div>
                 ))}
                 <h1 className="text-xl font-bold tracking-wider">
                   {selectedPart} COLORS
                 </h1>
-                <div className="my-4 ml-2 flex items-center gap-4">
+                <div className="my-4 ml-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  justify-items-center gap-y-4 place-content-around">
                   {partsOptions[selectedPart].colors.map((color) => (
-                    <span key={color}>{color}</span>
+                    <ColorBox
+                      key={color}
+                      color={color}
+                      selectedColor={(() => {
+                        switch (selectedPart) {
+                          case "HEAD":
+                            return headSelectedColor;
+                          case "TORSO":
+                            return torsoSelectedColor;
+                          case "LEGS":
+                            return legsSelectedColor;
+                          case "FEET":
+                            return feetSelectedColor;
+                          default:
+                            return null;
+                        }
+                      })()}
+                      onClick={() => handleColorSelect(color)}
+                    />
                   ))}
                 </div>
               </div>
@@ -62,5 +157,16 @@ const Configurator = () => {
     </div>
   );
 };
+
+const ColorBox = ({ color, selectedColor, onClick }) => (
+  <div
+    className="w-12 aspect-square border-2 border-white rounded-full cursor-pointer"
+    style={{
+      backgroundColor: `${color}`,
+      borderColor: color === selectedColor ? `#ffffff` : '#6b7280'
+    }}
+    onClick={onClick}
+  ></div>
+);
 
 export default Configurator;
