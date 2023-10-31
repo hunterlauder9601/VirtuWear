@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { HiArrowLeft, HiArrowRight, HiReply } from "react-icons/hi";
 import { useConfigurator } from "@/contexts/Customization";
 
 
 const Configurator = () => {
-  // const [selectedPart, setSelectedPart] = useState(null);
   const {
     headItem,
     setHeadItem,
@@ -77,7 +76,7 @@ const Configurator = () => {
     <div className="pointer-events-none absolute right-0 top-0 h-full w-full text-lg">
       <div className="flex h-full w-full items-center justify-end">
         <div className="pointer-events-auto flex h-fit max-h-[75%] w-[40%] flex-col overflow-y-auto rounded-3xl border-2 border-white md:w-[30%] lg:w-[25%]">
-          {!selectedPart ? (
+          {!partsOptions[selectedPart] ? (
             Object.keys(partsOptions).map((part) => (
               <button
                 key={part}
@@ -90,7 +89,7 @@ const Configurator = () => {
           ) : (
             <>
               <button
-                onClick={() => setSelectedPart(null)}
+                onClick={() => setSelectedPart("MENU")}
                 className="flex items-center gap-4 p-4 hover:bg-neutral/25"
               >
                 <HiReply size={20} />
@@ -101,7 +100,7 @@ const Configurator = () => {
                 <h1 className="mt-2 text-xl font-bold tracking-wider">
                   {selectedPart} ITEMS
                 </h1>
-                {partsOptions[selectedPart].items.map((item) => (
+                {partsOptions[selectedPart] && partsOptions[selectedPart].items.map((item) => (
                   <div
                     className='my-4 ml-2 flex items-center gap-4'
                     key={item}
@@ -116,7 +115,7 @@ const Configurator = () => {
                   {selectedPart} COLORS
                 </h1>
                 <div className="my-4 ml-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  justify-items-center gap-y-4 place-content-around">
-                  {partsOptions[selectedPart].colors.map((color) => (
+                  {partsOptions[selectedPart] && partsOptions[selectedPart].colors.map((color) => (
                     <ColorBox
                       key={color}
                       color={color}

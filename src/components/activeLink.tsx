@@ -15,7 +15,7 @@ const ActiveLink = ({
     // you get a global isActive class name, it is better than 
     // nothing, but it means you do not have scoping ability in 
     // certain cases
-       <Link {...rest} className={isActive ? "py-1 px-2 rounded-sm border-2 border-primary transition-all duration-150 bg-primary text-base-100 ease-linear" : "navBarButton"}> 
+       <Link {...rest} className={isActive ? "py-1 px-2 border-b-2 border-primary text-primary rounded-sm transition-all duration-150 ease-linear" : "navBarButton"}> 
          {children}
        </Link>
    );

@@ -51,7 +51,7 @@ const NavBar =  () => {
   };
 
   return (
-    <nav className="w-full fixed top-0 z-20 bg-neutral text-white font-bold tracking-wider border-b border-primary">
+    <nav className="w-full fixed top-0 z-20 bg-neutral text-white font-bold tracking-wider shadow-xl">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/">
