@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { HiArrowLeft, HiArrowRight, HiReply } from "react-icons/hi";
-import { ConfiguratorProvider, useConfigurator } from "@/app/contexts/Customization";
+import { useConfigurator } from "@/contexts/Customization";
 
 
 const Configurator = () => {
-  const [selectedPart, setSelectedPart] = useState(null);
+  // const [selectedPart, setSelectedPart] = useState(null);
   const {
     headItem,
     setHeadItem,
@@ -22,26 +22,13 @@ const Configurator = () => {
     setFeetItem,
     feetSelectedColor,
     setFeetSelectedColor,
-  } = useConfigurator(); // Use the custom hook
-
-  // const [selectedPart, setSelectedPart] = useState(null);
-
-  // // Separate state variables for each section
-  // const [headItem, setHeadItem] = useState(null);
-  // const [headSelectedColor, setHeadSelectedColor] = useState(null);
-
-  // const [torsoItem, setTorsoItem] = useState(null);
-  // const [torsoSelectedColor, setTorsoSelectedColor] = useState(null);
-
-  // const [legsItem, setLegsItem] = useState(null);
-  // const [legsSelectedColor, setLegsSelectedColor] = useState(null);
-
-  // const [feetItem, setFeetItem] = useState(null);
-  // const [feetSelectedColor, setFeetSelectedColor] = useState(null);
+    selectedPart,
+    setSelectedPart
+  } = useConfigurator(); 
 
   const partsOptions = {
     HEAD: { items: ["ItemName"], colors: ["#683434", "#1a5e1a", "#659994", "#896599", "#ffa500", "#59555b", "#222222", "#ececec"] },
-    TORSO: { items: ["ItemName"], colors: ["#683434", "#1a5e1a", "#659994", "#896599", "#ffa500", "#59555b", "#222222", "#ececec"] },
+    TORSO: { items: ["Fleece Hoodie"], colors: ["#683434", "#1a5e1a", "#659994", "#896599", "#ffa500", "#59555b", "#222222", "#ececec"] },
     LEGS: { items: ["ItemName"], colors: ["#683434", "#1a5e1a", "#659994", "#896599", "#ffa500", "#59555b", "#222222", "#ececec"] },
     FEET: { items: ["ItemName"], colors: ["#683434", "#1a5e1a", "#659994", "#896599", "#ffa500", "#59555b", "#222222", "#ececec"] },
   };
@@ -83,6 +70,8 @@ const Configurator = () => {
         break;
     }
   };
+
+
 
   return (
     <div className="pointer-events-none absolute right-0 top-0 h-full w-full text-lg">

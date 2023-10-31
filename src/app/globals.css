@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.navBarButton {
+  @apply py-1 px-2 border-2 border-base-100 hover:border-primary hover:bg-primary hover:text-base-100 rounded-sm transition-all duration-150 ease-linear
+}
+
 .ccButtonMain {
   @apply py-2 px-4 bg-primary rounded-3xl hover:bg-primary-focus hover:scale-110 transition-all ease-in mb-4 font-bold text-lg
 }

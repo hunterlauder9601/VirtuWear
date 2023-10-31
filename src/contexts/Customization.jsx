@@ -17,6 +17,9 @@ const ConfiguratorProvider = ({ children }) => {
   const [feetItem, setFeetItem] = useState(null);
   const [feetSelectedColor, setFeetSelectedColor] = useState(null);
 
+  // State for selected body part for camera zooming
+  const [selectedPart, setSelectedPart] = useState(null);
+
   return (
     <ConfiguratorContext.Provider
       value={{
@@ -37,6 +40,8 @@ const ConfiguratorProvider = ({ children }) => {
         setFeetItem,
         feetSelectedColor,
         setFeetSelectedColor,
+        selectedPart,
+        setSelectedPart,
       }}
     >
       {children}
@@ -44,7 +49,6 @@ const ConfiguratorProvider = ({ children }) => {
   );
 };
 
-// Create a custom hook to easily access the context within components
 const useConfigurator = () => {
   const context = useContext(ConfiguratorContext);
   if (!context) {

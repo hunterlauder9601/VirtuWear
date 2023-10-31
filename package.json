@@ -13,6 +13,7 @@
     "@prisma/client": "^5.4.2",
     "@react-three/drei": "^9.88.0",
     "@react-three/fiber": "^8.14.5",
+    "@tweenjs/tween.js": "^21.0.0",
     "daisyui": "^3.9.2",
     "eslint-config-prettier": "^9.0.0",
     "next": "13.5.4",
