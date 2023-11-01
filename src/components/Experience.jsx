@@ -6,6 +6,7 @@ import { Suspense, useRef, useEffect } from "react";
 import Male from "./Male";
 import TWEEN from "@tweenjs/tween.js";
 import { useFrame, useThree } from "@react-three/fiber";
+import { DoubleSide } from "three";
 
 function Tween() {
   useFrame(() => {
@@ -48,16 +49,24 @@ const Experience = () => {
 
     // Animate controls target
     new TWEEN.Tween(controlsRef.current.target)
-      .to(lookAt, 4000)
+      .to(lookAt, 3100)
       .easing(TWEEN.Easing.Cubic.Out)
       .start();
 
     // Animate camera position
     new TWEEN.Tween(camera.position)
-      .to(position, 4000)
+      .to(position, 3000)
       .easing(TWEEN.Easing.Cubic.Out)
       .start();
   }, [selectedPart, controlsRef, camera.position]);
+
+  useEffect(() => {
+    // Adjusting camera's near and far clipping planes
+    camera.near = 0.01;
+    camera.far = 1000;
+    camera.updateProjectionMatrix();
+  }, [camera]);
+
 
   return (
     <>
@@ -65,9 +74,11 @@ const Experience = () => {
         ref={controlsRef}
         target={[0, 0, 0]}
         maxPolarAngle={Math.PI / 2}
+        minDistance={1}  // Set minimum distance to avoid clipping
+        maxDistance={50} // Set maximum distance as per your need
       />
       <Tween />
-      <group position-y={-1}>
+      <group position-y={-0.9}>
         <Suspense fallback={null}>
           <Male />
         </Suspense>
@@ -93,6 +104,7 @@ const Experience = () => {
       <mesh rotation={[-Math.PI / 2, 0, 0]} position-y={-1}>
         <planeGeometry args={[170, 170]} />
         <MeshReflectorMaterial
+          side={DoubleSide}
           blur={[300, 100]}
           resolution={2048}
           mixBlur={1}

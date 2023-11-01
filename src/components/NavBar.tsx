@@ -70,8 +70,8 @@ const NavBar =  () => {
                   ref={userMenuButtonRef}
                   className={`group duration-300 ease-linear p-1 rounded-md transition-all ${
                     showUserMenu
-                      ? 'bg-purple-500 fill-purple-500'
-                      : 'hover:bg-purple-500 hover:fill-purple-500'
+                      ? 'bg-primary fill-primary'
+                      : 'hover:bg-primary hover:fill-primary'
                   }`}
                 >
                   <HiUserCircle
@@ -100,37 +100,37 @@ const NavBar =  () => {
           </div>
           {!isMobileMenuOpen &&
           <div className="md:hidden flex items-center">
-            <button type="button" className="text-gray-900 hover:text-purple-600 focus:outline-none focus:text-purple-600" onClick={toggleMenu}>
-                 <HiMenu size={30} className='bg-transparent hover:text-purple-600 duration-300 ease-linear cursor-pointer'/>
+            <button type="button" className="text-white hover:text-primary focus:outline-none focus:text-primary" onClick={toggleMenu}>
+                 <HiMenu size={30} className='bg-transparent hover:text-primary duration-300 ease-linear cursor-pointer'/>
             </button>
           </div>}
         </div>
-        <div className={`${isMobileMenuOpen ? "block fixed top-0 left-0 w-full h-screen bg-gray-200 z-50" : "hidden"} md:hidden`}>
+        <div className={`${isMobileMenuOpen ? "block fixed top-0 left-0 w-full h-screen bg-neutral z-50" : "hidden"} md:hidden`}>
         <button
           type="button"
-          className="absolute top-0 right-0 m-4 text-gray-900 hover:text-purple-600 focus:outline-none"
+          className="absolute top-0 right-0 m-4 text-white hover:text-primary focus:outline-none"
           onClick={toggleMenu}
         >
           <HiX size={30} />
         </button>
         <div className="flex flex-col items-center justify-center h-full font-bold text-2xl">
-          <hr className='w-1/2 border my-[5vh] border-gray-300'/>
+          <hr className='w-1/2 border my-[5vh] border-base-100'/>
           <ActiveLink href="/" onClick={toggleMenu}>Home</ActiveLink>
-          <hr className='w-1/2 border my-[5vh] border-gray-300'/>
+          <hr className='w-1/2 border my-[5vh] border-base-100'/>
           <ActiveLink href="/products" onClick={toggleMenu}>Products</ActiveLink>
-          <hr className='w-1/2 border my-[5vh] border-gray-300'/>
+          <hr className='w-1/2 border my-[5vh] border-base-100'/>
           <ActiveLink href="/customizer" onClick={toggleMenu}>Customizer</ActiveLink>
-          <hr className='w-1/2 border my-[5vh] border-gray-300'/>
+          <hr className='w-1/2 border my-[5vh] border-base-100'/>
           <ActiveLink href="/about" onClick={toggleMenu}>About</ActiveLink>
-          <hr className='w-1/2 border my-[5vh] border-gray-300'/>
+          <hr className='w-1/2 border my-[5vh] border-base-100'/>
           {!isLoggedIn && <ActiveLink href="/login" onClick={toggleMenu}>Log in</ActiveLink>}
           {isLoggedIn && <>
-          <Link href="/account" onClick={toggleMenu} className="hover:text-purple-600 duration-100 ease-linear">{username}
+          <Link href="/account" onClick={toggleMenu} className="hover:text-primary duration-100 ease-linear">{username}
           </Link>
-          <hr className='w-1/2 border my-[5vh] border-gray-300'/>
+          <hr className='w-1/2 border my-[5vh] border-base-100'/>
           <button onClick={() => { toggleMenu(); } } className="hover:text-red-500 text-red-400 duration-100 ease-linear">Log out</button>
           </>}
-          <hr className='w-1/2 border my-[5vh] border-gray-300'/>
+          <hr className='w-1/2 border my-[5vh] border-base-100'/>
         </div>
       </div>
       </div>
