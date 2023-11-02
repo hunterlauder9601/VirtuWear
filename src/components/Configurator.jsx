@@ -106,9 +106,9 @@ const Configurator = () => {
                     key={item}
                     onClick={() => handleItemSelect(item)}
                   >
-                    <HiArrowLeft size={20} className='cursor-pointer'/>
+                    <HiArrowLeft size={25} className='cursor-pointer hover:scale-110 duration-100 ease-linear'/>
                     {item}
-                    <HiArrowRight size={20} className='cursor-pointer'/>
+                    <HiArrowRight size={25} className='cursor-pointer hover:scale-110 duration-100 ease-linear'/>
                   </div>
                 ))}
                 <h1 className="text-xl font-bold tracking-wider">
@@ -148,7 +148,7 @@ const Configurator = () => {
 
 const ColorBox = ({ color, selectedColor, onClick }) => (
   <div
-    className="w-12 aspect-square border-2 border-white rounded-full cursor-pointer"
+    className="w-12 aspect-square border-2 border-white rounded-full cursor-pointer hover:scale-110 duration-100 ease-linear"
     style={{
       backgroundColor: `${color}`,
       borderColor: color === selectedColor ? `#ffffff` : '#6b7280'

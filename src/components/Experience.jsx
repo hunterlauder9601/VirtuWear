@@ -78,7 +78,7 @@ const Experience = () => {
         maxDistance={50} // Set maximum distance as per your need
       />
       <Tween />
-      <group position-y={-0.9}>
+      <group position-y={-1}>
         <Suspense fallback={null}>
           <Male />
         </Suspense>

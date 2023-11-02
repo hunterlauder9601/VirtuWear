@@ -60,9 +60,9 @@ export const page = () => {
           type="number"
           className="input input-bordered mb-4 w-full bg-neutral text-lg"
         />
-        <button className="ccButtonMain">
+        <FormSubmitButton className="ccButtonMain">
           Add Product
-        </button>
+        </FormSubmitButton>
       </form>
     </div>
   );

@@ -2,11 +2,8 @@
 const nextConfig = {
     images: {
         remotePatterns: [
-            {hostname: "images.unsplash"}
+            {hostname: "images.unsplash.com"}
         ]
-    },
-    experimental: {
-        serverActions: true
     },
     transpilePackages: ['three'],
 }

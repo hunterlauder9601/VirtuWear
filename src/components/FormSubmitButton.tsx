@@ -13,12 +13,12 @@ export default function FormSubmitButton({
   className,
   ...props
 }: FormSubmitButtonProps) {
-  const { pending }= useFormStatus();
+  const { pending } = useFormStatus();
 
   return (
     <button
       {...props}
-      className={`btn-primary btn ${className}`}
+      className={`btn btn-primary ${className}`}
       type="submit"
       disabled={pending}
     >

@@ -55,7 +55,7 @@ const NavBar =  () => {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/">
-            <div className="text-2xl text-white tracking-widest font-bold -skew-x-6"><span className='text-accent'>E</span>COMMERCE</div>
+            <div className="text-2xl text-white tracking-widest font-bold -skew-x-6"><span className='text-accent'>VIRTU</span>WEAR</div>
           </Link>
           <div className="hidden md:flex gap-6 text-lg text-primary">
             <ActiveLink href="/">Home</ActiveLink>
