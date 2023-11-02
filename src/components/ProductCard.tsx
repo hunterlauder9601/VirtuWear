@@ -24,6 +24,7 @@ interface ProductCardProps {
             alt={product.name}
             width={800}
             height={400}
+            draggable={false}
             className="h-48 object-cover"
           />
         </figure>

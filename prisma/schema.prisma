@@ -12,8 +12,10 @@ model Product {
   description String
   imageUrl    String
   name        String
+  clothesCat  String?
+  model       String?
   price       Int
-  category    String[]
+  category    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

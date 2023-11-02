@@ -3,6 +3,7 @@ import prisma from "@/lib/db/prisma";
 import Image from "next/image";
 import Link from "next/link";
 import colors from "@/lib/Watercolor-PNG-File.png";
+import TypewriterTitle from "@/components/TypeWriter";
 
 interface HomeProps {
   searchParams: { page: string };
@@ -32,23 +33,23 @@ export default async function Home({
       <div className="mt-[64px] flex h-full w-full max-w-6xl flex-col items-center justify-center p-4">
         {currentPage === 1 && (
           <>
-            <div className="relative flex h-fit w-full flex-col items-center justify-center md:h-[calc(50vh-65px)]">
+            <div className="relative flex w-full flex-col items-center justify-center h-[calc(66vh-65px)] md:h-[calc(50vh-65px)]">
               <div className="absolute inset-0 flex items-center justify-center">
                 <Image
                   src={colors}
                   alt=""
                   width={700}
-                  height={300}
                   quality={80}
                   placeholder="blur"
+                  draggable={false}
                   className="blur-3xl brightness-75 filter"
                 />
               </div>
-              <h1 className="z-10 text-5xl font-bold -skew-x-6 mb-4">
-              VirtuWear
+              <h1 className="z-10 mb-4 -skew-x-6 text-5xl font-bold">
+                VirtuWear
               </h1>
-              <h2 className="z-10 text-xl font-bold">
-                Craft Your Style, Visualize in 3D - Your Perfect Outfit Awaits!
+              <h2 className="z-10 text-2xl font-bold">
+                <TypewriterTitle/>
               </h2>
             </div>
             <div className="hero rounded-xl bg-base-200">
@@ -58,6 +59,7 @@ export default async function Home({
                   alt={products[0].name}
                   width={400}
                   height={800}
+                  draggable={false}
                   className="w-full max-w-sm rounded-lg shadow-2xl"
                   priority
                 />
