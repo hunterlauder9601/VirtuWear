@@ -73,7 +73,7 @@ const Configurator = () => {
 
 
   return (
-    <div className="pointer-events-none absolute right-0 top-0 h-full w-full text-lg">
+    <div className="pointer-events-none absolute right-0 top-0 h-full w-full text-lg text-white">
       <div className="flex h-full w-full items-center justify-end">
         <div className="pointer-events-auto flex h-fit max-h-[75%] w-[40%] flex-col overflow-y-auto rounded-3xl border-2 border-white md:w-[30%] lg:w-[25%]">
           {!partsOptions[selectedPart] ? (

@@ -1,38 +1,20 @@
-import React from "react";
-import prisma from "@/lib/db/prisma";
-import { redirect } from "next/navigation";
+"use client";
+import { ChangeEvent, useState } from "react";
+import { addProduct } from "@/lib/serverActions";
 import FormSubmitButton from "../../components/FormSubmitButton";
 
-export const metadata = {
-  title: "Add Product - Company",
-};
+export const Page = () => {
+  const [isClothes, setIsClothes] = useState(true);
 
-async function addProduct(formData: FormData) {
-  "use server";
+  const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setIsClothes(event.target.value !== 'misc');
+  };
 
-  const name = formData.get("name")?.toString();
-  const description = formData.get("description")?.toString();
-  const imageUrl = formData.get("imageUrl")?.toString();
-  const price = Number(formData.get("price") || 0);
-  const category = formData.get("category")?.toString();
-  const model = formData.get("modelFilename")?.toString();
-
-
-  if (!name || !description || !imageUrl || !price || !category || !model) {
-    throw Error("Missing required fields");
-  }
-
-  await prisma.product.create({
-    data: { name, description, imageUrl, price, category, model },
-  });
-
-  redirect("/");
-}
-
-export const page = () => {
   return (
     <div className="flex max-h-fit min-h-[calc(100vh-65px)] w-full flex-col items-center justify-center bg-base-100 text-white">
-      <h1 className="mb-6 text-3xl font-bold tracking-wider mt-[64px]">Add Product</h1>
+      <h1 className="mb-6 mt-[64px] text-3xl font-bold tracking-wider">
+        Add Product
+      </h1>
       <form
         action={addProduct}
         className="flex w-full max-w-4xl flex-col items-center px-6 shadow-2xl"
@@ -75,14 +57,33 @@ export const page = () => {
 
         <div className="mb-4 flex items-center gap-4 self-start">
           <h2 className="">Category:</h2>
-          <select name="category" className="select select-bordered" defaultValue="men">
-            <option value="men">
-              Men
-            </option>
+          <select
+            name="category"
+            className="select select-bordered"
+            defaultValue="men"
+            onChange={handleCategoryChange}
+          >
+            <option value="men">Men</option>
             <option value="women">Women</option>
             <option value="misc">Misc</option>
           </select>
         </div>
+        {isClothes && (
+          <div className="mb-4 flex items-center gap-4 self-start">
+            <h2 className="">Clothes Category:</h2>
+            <select
+              name="clothesCategory"
+              className="select select-bordered"
+              defaultValue="head"
+            >
+              <option value="head">Head</option>
+              <option value="torso">Torso</option>
+              <option value="legs">Legs</option>
+              <option value="feet">Feet</option>
+            </select>
+          </div>
+        )}
+
         <FormSubmitButton className="ccButtonMain">
           Add Product
         </FormSubmitButton>
@@ -91,4 +92,4 @@ export const page = () => {
   );
 };
 
-export default page;
+export default Page;

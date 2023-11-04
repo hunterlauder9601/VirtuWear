@@ -15,7 +15,7 @@ const TypewriterTitle = (props: Props) => {
           .typeString("Craft Your Style, Visualize in 3D - Your Perfect Outfit Awaits!")
           .pauseFor(2000)
           .deleteAll()
-          .typeString("Interactive Fashion Technology")
+          .typeString("Interactive E-Commerce Marketplace")
           .pauseFor(2000)
           .start();
       }}

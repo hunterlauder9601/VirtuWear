@@ -12,7 +12,7 @@ model Product {
   description String
   imageUrl    String
   name        String
-  clothesCat  String?
+  clothesCategory  String?
   model       String?
   price       Int
   category    String

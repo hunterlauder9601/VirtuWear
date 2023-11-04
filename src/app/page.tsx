@@ -1,13 +1,17 @@
 import ProductCard from "@/components/ProductCard";
 import prisma from "@/lib/db/prisma";
+import { getAllItems } from "@/lib/dbMethods";
 import Image from "next/image";
 import Link from "next/link";
 import colors from "@/lib/Watercolor-PNG-File.png";
+import PaginationBar from "@/components/PaginationBar";
 import TypewriterTitle from "@/components/TypeWriter";
 
 interface HomeProps {
   searchParams: { page: string };
 }
+
+export const revalidate = 3600; // revalidate the data at most every hour
 
 export default async function Home({
   searchParams: { page = "1" },
@@ -21,19 +25,14 @@ export default async function Home({
 
   const totalPages = Math.ceil((totalItemCount - heroItemCount) / pageSize);
 
-  const products = await prisma.product.findMany({
-    orderBy: { id: "desc" },
-    skip:
-      (currentPage - 1) * pageSize + (currentPage === 1 ? 0 : heroItemCount),
-    take: pageSize + (currentPage === 1 ? heroItemCount : 0),
-  });
+  const products = await getAllItems(currentPage, pageSize, heroItemCount);
 
   return (
     <div className="flex max-h-fit min-h-[calc(100vh-65px)] w-full flex-col items-center justify-center bg-base-100 text-white">
       <div className="mt-[64px] flex h-full w-full max-w-6xl flex-col items-center justify-center p-4">
         {currentPage === 1 && (
           <>
-            <div className="relative flex w-full flex-col items-center justify-center h-[calc(66vh-65px)] md:h-[calc(50vh-65px)]">
+            <div className="relative flex h-[calc(66vh-65px)] w-full flex-col items-center justify-center md:h-[calc(50vh-65px)]">
               <div className="absolute inset-0 flex items-center justify-center">
                 <Image
                   src={colors}
@@ -45,11 +44,11 @@ export default async function Home({
                   className="blur-3xl brightness-75 filter"
                 />
               </div>
-              <h1 className="z-10 mb-4 -skew-x-6 text-5xl font-bold">
+              <h1 className="z-10 mb-4 -skew-x-6 text-5xl font-bold shadow-xl">
                 VirtuWear
               </h1>
-              <h2 className="z-10 text-2xl font-bold">
-                <TypewriterTitle/>
+              <h2 className="z-10 text-2xl font-bold shadow-lg">
+                <TypewriterTitle />
               </h2>
             </div>
             <div className="hero rounded-xl bg-base-200">
@@ -84,9 +83,9 @@ export default async function Home({
           ))}
         </div>
 
-        {/* {totalPages > 1 && (
-        <PaginationBar currentPage={currentPage} totalPages={totalPages} />
-      )} */}
+        {totalPages > 1 && (
+          <PaginationBar currentPage={currentPage} totalPages={totalPages} />
+        )}
       </div>
     </div>
   );

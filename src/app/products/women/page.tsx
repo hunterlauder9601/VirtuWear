@@ -1,36 +1,63 @@
-import React from "react";
 import ProductCard from "@/components/ProductCard";
 import prisma from "@/lib/db/prisma";
+import { getClothingItems } from "@/lib/dbMethods";
+import Link from "next/link";
+import PaginationBar from "@/components/PaginationBar";
 
-type Props = {};
+interface WomensProductsProps {
+  searchParams: { group: string; page: string };
+}
 
-const WomensProducts = async (props: Props) => {
-  const products = await prisma.product.findMany({
-    orderBy: { id: "desc" },
-    where: { category: "women" },
-  });
+export default async function WomensProducts({
+  searchParams: { group = "all", page = "1" },
+}: WomensProductsProps) {
+  const categories = ["all", "head", "torso", "legs", "feet"];
+
+  const currentPage = parseInt(page);
+
+  const pageSize = 6;
+
+  const heroItemCount = 1;
+
+  const totalItemCount = await prisma.product.count();
+
+  const totalPages = Math.ceil((totalItemCount - heroItemCount) / pageSize);
+
+  const products = await getClothingItems(
+    "women",
+    group,
+    currentPage,
+    pageSize,
+    heroItemCount,
+  );
 
   return (
-    <div className="flex max-h-fit min-h-[calc(100vh-65px)] w-full flex-col items-center justify-center bg-base-100 text-white">
-      <div className="mt-[64px] flex h-full w-full max-w-6xl flex-col items-center justify-center p-4">
-        <h1 className="mb-12 -skew-x-6 p-2 text-3xl font-bold tracking-widest bg-gradient-to-r from-secondary to-primary text-base-100">
+    <div className="flex max-h-fit min-h-[calc(100vh-65px)] w-full flex-col items-center justify-start  bg-base-100 text-white">
+      <div className="mt-[calc(64px+10vh)] flex h-full w-full max-w-6xl flex-col items-center justify-start p-4">
+      <h1 className="mb-12 -skew-x-6 p-2 text-3xl font-bold tracking-widest bg-gradient-to-r from-secondary to-accent text-base-100">
           WOMEN&apos;S PRODUCTS
         </h1>
         <div className="btn-group btn-group-vertical mb-8 lg:btn-group-horizontal">
-            <input type="radio" name="options" data-title="ALL" className="btn" defaultChecked/>
-            <input type="radio" name="options" data-title="HEAD" className="btn" />
-            <input type="radio" name="options" data-title="TORSO" className="btn"/>
-            <input type="radio" name="options" data-title="LEGS" className="btn"/>
-            <input type="radio" name="options" data-title="FEET" className="btn"/>
+          {categories.map((category) => (
+            <Link
+              href={`/products/women?group=${category}`}
+              key={category}
+              className={`btn ${group === category && "btn-active"}`}
+            >
+              {category}
+            </Link>
+          ))}
         </div>
         <div className="my-4 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {products.map((item) => (
             <ProductCard key={item.id} product={item} />
           ))}
         </div>
+
+        {totalPages > 1 && (
+          <PaginationBar currentPage={currentPage} totalPages={totalPages} />
+        )}
       </div>
     </div>
   );
-};
-
-export default WomensProducts;
+}
