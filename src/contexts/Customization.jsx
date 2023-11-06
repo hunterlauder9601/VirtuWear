@@ -5,16 +5,16 @@ const ConfiguratorContext = createContext();
 
 const ConfiguratorProvider = ({ children }) => {
   // Separate state variables for each section
-  const [headItem, setHeadItem] = useState(null);
+  const [headItem, setHeadItem] = useState(0);
   const [headSelectedColor, setHeadSelectedColor] = useState(null);
 
-  const [torsoItem, setTorsoItem] = useState(null);
+  const [torsoItem, setTorsoItem] = useState(0);
   const [torsoSelectedColor, setTorsoSelectedColor] = useState(null);
 
-  const [legsItem, setLegsItem] = useState(null);
+  const [legsItem, setLegsItem] = useState(0);
   const [legsSelectedColor, setLegsSelectedColor] = useState(null);
 
-  const [feetItem, setFeetItem] = useState(null);
+  const [feetItem, setFeetItem] = useState(0);
   const [feetSelectedColor, setFeetSelectedColor] = useState(null);
 
   // State for selected body part for camera zooming

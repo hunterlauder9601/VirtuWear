@@ -1,9 +1,11 @@
 import React from "react";
 import { HiArrowLeft, HiArrowRight, HiReply } from "react-icons/hi";
 import { useConfigurator } from "@/contexts/Customization";
+import { getAllClothes } from "@/lib/dbMethods";
+import { getClothesCustomizer } from "@/lib/serverActions";
 
 
-const Configurator = () => {
+const Configurator = ({data}) => {
   const {
     headItem,
     setHeadItem,
@@ -31,7 +33,9 @@ const Configurator = () => {
     LEGS: { items: ["ItemName"], colors: ["#683434", "#1a5e1a", "#659994", "#896599", "#ffa500", "#59555b", "#222222", "#ececec"] },
     FEET: { items: ["ItemName"], colors: ["#683434", "#1a5e1a", "#659994", "#896599", "#ffa500", "#59555b", "#222222", "#ececec"] },
   };
+  //todo: fetch from mongodb, real products name for display text, model for displaying character, and colors for correct color options
 
+  console.log(data);
   const handleColorSelect = (color) => {
     switch (selectedPart) {
       case "HEAD":

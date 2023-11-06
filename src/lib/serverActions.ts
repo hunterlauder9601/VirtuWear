@@ -23,4 +23,3 @@ export async function addProduct(formData: FormData) {
   redirect("/");
 }
 
-
