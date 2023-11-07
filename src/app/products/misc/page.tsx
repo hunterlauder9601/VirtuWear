@@ -14,18 +14,11 @@ export default async function MiscProducts({
 
   const pageSize = 6;
 
-  const heroItemCount = 1;
-
   const totalItemCount = await prisma.product.count();
 
-  const totalPages = Math.ceil((totalItemCount - heroItemCount) / pageSize);
+  const totalPages = Math.ceil(totalItemCount / pageSize);
 
-  const products = await getMiscItems(
-    "misc",
-    currentPage,
-    pageSize,
-    heroItemCount,
-  );
+  const products = await getMiscItems("misc", currentPage, pageSize);
 
   return (
     <div className="flex max-h-fit min-h-[calc(100vh-65px)] w-full flex-col items-center justify-start  bg-base-100 text-white">
