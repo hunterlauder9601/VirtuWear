@@ -7,7 +7,7 @@ export const Page = () => {
   const [isClothes, setIsClothes] = useState(true);
 
   const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setIsClothes(event.target.value !== 'misc');
+    setIsClothes(event.target.value !== "misc");
   };
 
   return (
@@ -31,27 +31,11 @@ export const Page = () => {
           placeholder="Description"
           className="textarea textarea-bordered mb-4 w-full bg-neutral text-lg"
         />
-
         <input
           required
           name="imageUrl"
-          placeholder="Image URL"
+          placeholder="Image URL(s) (separate by spaces)"
           type="url"
-          className="input input-bordered mb-4 w-full bg-neutral text-lg"
-        />
-
-        <input
-          required
-          name="modelFilename"
-          placeholder="Model Filename"
-          className="input input-bordered mb-4 w-full bg-neutral text-lg"
-        />
-
-        <input
-          required
-          name="price"
-          placeholder="Price"
-          type="number"
           className="input input-bordered mb-4 w-full bg-neutral text-lg"
         />
 
@@ -69,20 +53,42 @@ export const Page = () => {
           </select>
         </div>
         {isClothes && (
-          <div className="mb-4 flex items-center gap-4 self-start">
-            <h2 className="">Clothes Category:</h2>
-            <select
-              name="clothesCategory"
-              className="select select-bordered"
-              defaultValue="head"
-            >
-              <option value="head">Head</option>
-              <option value="torso">Torso</option>
-              <option value="legs">Legs</option>
-              <option value="feet">Feet</option>
-            </select>
-          </div>
+          <>
+            <div className="mb-4 flex items-center gap-4 self-start">
+              <h2 className="">Clothes Category:</h2>
+              <select
+                name="clothesCategory"
+                className="select select-bordered"
+                defaultValue="head"
+              >
+                <option value="head">Head</option>
+                <option value="glasses">Glasses</option>
+                <option value="torso">Torso</option>
+                <option value="legs">Legs</option>
+                <option value="feet">Feet</option>
+              </select>
+            </div>
+            <input
+              required
+              name="modelFilename"
+              placeholder="Model Identifier (1 to n)"
+              className="input input-bordered mb-4 w-full bg-neutral text-lg"
+            />
+            <input
+              name="colors"
+              placeholder="HEX Color Option(s) (separate by spaces)"
+              className="input input-bordered mb-4 w-full bg-neutral text-lg"
+            />
+          </>
         )}
+
+        <input
+          required
+          name="price"
+          placeholder="Price"
+          type="number"
+          className="input input-bordered mb-4 w-full bg-neutral text-lg"
+        />
 
         <FormSubmitButton className="ccButtonMain">
           Add Product

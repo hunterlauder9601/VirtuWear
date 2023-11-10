@@ -1,6 +1,5 @@
 import ProductCard from "@/components/ProductCard";
-import prisma from "@/lib/db/prisma";
-import { getAllItems } from "@/lib/dbMethods";
+import { getAllItems, productCount } from "@/lib/dbMethods";
 import Image from "next/image";
 import Link from "next/link";
 import colors from "@/lib/Watercolor-PNG-File.png";
@@ -19,9 +18,10 @@ export default async function Home({
   const currentPage = parseInt(page);
 
   const pageSize = 6;
+
   const heroItemCount = 1;
 
-  const totalItemCount = await prisma.product.count();
+  const totalItemCount = await productCount("all", "all");
 
   const totalPages = Math.ceil((totalItemCount - heroItemCount) / pageSize);
 
@@ -54,7 +54,7 @@ export default async function Home({
             <div className="hero rounded-xl bg-base-200">
               <div className="hero-content flex-col lg:flex-row">
                 <Image
-                  src={products[0].imageUrl}
+                  src={products[0].imageUrl[0]}
                   alt={products[0].name}
                   width={400}
                   height={800}

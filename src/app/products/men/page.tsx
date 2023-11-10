@@ -1,6 +1,6 @@
 import ProductCard from "@/components/ProductCard";
 import prisma from "@/lib/db/prisma";
-import { getClothingItems } from "@/lib/dbMethods";
+import { getClothingItems, productCount } from "@/lib/dbMethods";
 import Link from "next/link";
 import PaginationBar from "@/components/PaginationBar";
 
@@ -17,7 +17,7 @@ export default async function MensProducts({
 
   const pageSize = 6;
 
-  const totalItemCount = await prisma.product.count();
+  const totalItemCount = await productCount("men", group);
 
   const totalPages = Math.ceil(totalItemCount / pageSize);
 

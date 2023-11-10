@@ -1,6 +1,5 @@
 import ProductCard from "@/components/ProductCard";
-import prisma from "@/lib/db/prisma";
-import { getMiscItems } from "@/lib/dbMethods";
+import { getMiscItems, productCount } from "@/lib/dbMethods";
 import PaginationBar from "@/components/PaginationBar";
 
 interface MiscProductsProps {
@@ -14,7 +13,7 @@ export default async function MiscProducts({
 
   const pageSize = 6;
 
-  const totalItemCount = await prisma.product.count();
+  const totalItemCount = await productCount("misc", "all");
 
   const totalPages = Math.ceil(totalItemCount / pageSize);
 

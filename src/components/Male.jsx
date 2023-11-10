@@ -4,6 +4,12 @@ import { useEffect, useRef, useLayoutEffect } from "react";
 
 export default function Model(props) {
   const group = useRef();
+  const headwear = useRef();
+  const torso = useRef();
+  const glasses = useRef();
+  const bottom = useRef();
+  const footwear = useRef();
+
   const { nodes, materials } = useGLTF("compose_model.glb");
   const { animations: standingAnimation } = useFBX("standing.fbx");
 
@@ -15,8 +21,8 @@ export default function Model(props) {
     actions["Standing"].reset().play();
   }, [actions]);
 
-  console.log(standingAnimation);
   const {
+    sexSelection,
     headItem,
     headSelectedColor,
     torsoItem,
@@ -35,9 +41,6 @@ export default function Model(props) {
       });
     }
   }, []);
-
-  console.log(nodes);
-  console.log(materials);
 
   return (
     <group {...props} dispose={null} ref={group}>
@@ -72,6 +75,7 @@ export default function Model(props) {
             geometry={nodes.Wolf3D_Glasses.geometry}
             material={materials.Wolf3D_Glasses}
             skeleton={nodes.Wolf3D_Glasses.skeleton}
+            ref={glasses}
           />
           <skinnedMesh
             name="Wolf3D_Head"
@@ -81,84 +85,105 @@ export default function Model(props) {
             morphTargetDictionary={nodes.Wolf3D_Head.morphTargetDictionary}
             morphTargetInfluences={nodes.Wolf3D_Head.morphTargetInfluences}
           />
-          <skinnedMesh
-            name="Wolf3D_Headwear"
-            geometry={nodes.Wolf3D_Headwear.geometry}
-            material={materials.Wolf3D_Headwear}
-            skeleton={nodes.Wolf3D_Headwear.skeleton}
-          />
-          <skinnedMesh
-            name="Wolf3D_Outfit_Bottom"
-            geometry={nodes.Wolf3D_Outfit_Bottom.geometry}
-            material={materials.Wolf3D_Outfit_Bottom}
-            skeleton={nodes.Wolf3D_Outfit_Bottom.skeleton}
-            morphTargetDictionary={
-              nodes.Wolf3D_Outfit_Bottom.morphTargetDictionary
-            }
-            morphTargetInfluences={
-              nodes.Wolf3D_Outfit_Bottom.morphTargetInfluences
-            }
-          />
-          <skinnedMesh
-            name="Wolf3D_Outfit_Bottom_2"
-            geometry={nodes.Wolf3D_Outfit_Bottom_2.geometry}
-            material={materials.Wolf3D_Outfit_Bottom_2}
-            skeleton={nodes.Wolf3D_Outfit_Bottom_2.skeleton}
-            morphTargetDictionary={
-              nodes.Wolf3D_Outfit_Bottom_2.morphTargetDictionary
-            }
-            morphTargetInfluences={
-              nodes.Wolf3D_Outfit_Bottom_2.morphTargetInfluences
-            }
-          />
-          <skinnedMesh
-            name="Wolf3D_Outfit_Footwear"
-            geometry={nodes.Wolf3D_Outfit_Footwear.geometry}
-            material={materials.Wolf3D_Outfit_Footwear}
-            skeleton={nodes.Wolf3D_Outfit_Footwear.skeleton}
-            morphTargetDictionary={
-              nodes.Wolf3D_Outfit_Footwear.morphTargetDictionary
-            }
-            morphTargetInfluences={
-              nodes.Wolf3D_Outfit_Footwear.morphTargetInfluences
-            }
-          />
-          <skinnedMesh
-            name="Wolf3D_Outfit_Footwear_2"
-            geometry={nodes.Wolf3D_Outfit_Footwear_2.geometry}
-            material={materials.Wolf3D_Outfit_Footwear_2}
-            skeleton={nodes.Wolf3D_Outfit_Footwear_2.skeleton}
-            morphTargetDictionary={
-              nodes.Wolf3D_Outfit_Footwear_2.morphTargetDictionary
-            }
-            morphTargetInfluences={
-              nodes.Wolf3D_Outfit_Footwear_2.morphTargetInfluences
-            }
-          />
-          <skinnedMesh
-            name="Wolf3D_Outfit_Top"
-            geometry={nodes.Wolf3D_Outfit_Top.geometry}
-            material={materials.Wolf3D_Outfit_Top}
-            skeleton={nodes.Wolf3D_Outfit_Top.skeleton}
-            morphTargetDictionary={
-              nodes.Wolf3D_Outfit_Top.morphTargetDictionary
-            }
-            morphTargetInfluences={
-              nodes.Wolf3D_Outfit_Top.morphTargetInfluences
-            }
-          />
-          <skinnedMesh
-            name="Wolf3D_Outfit_Top_2"
-            geometry={nodes.Wolf3D_Outfit_Top_2.geometry}
-            material={materials.Wolf3D_Outfit_Top_2}
-            skeleton={nodes.Wolf3D_Outfit_Top_2.skeleton}
-            morphTargetDictionary={
-              nodes.Wolf3D_Outfit_Top_2.morphTargetDictionary
-            }
-            morphTargetInfluences={
-              nodes.Wolf3D_Outfit_Top_2.morphTargetInfluences
-            }
-          />
+          {headItem === "1" && (
+            <skinnedMesh
+              name="Wolf3D_Headwear"
+              geometry={nodes.Wolf3D_Headwear.geometry}
+              material={materials.Wolf3D_Headwear}
+              skeleton={nodes.Wolf3D_Headwear.skeleton}
+              ref={headwear}
+            />
+          )}
+          {legsItem === "1" && (
+            <skinnedMesh
+              name="Wolf3D_Outfit_Bottom"
+              geometry={nodes.Wolf3D_Outfit_Bottom.geometry}
+              material={materials.Wolf3D_Outfit_Bottom}
+              skeleton={nodes.Wolf3D_Outfit_Bottom.skeleton}
+              ref={bottom}
+              morphTargetDictionary={
+                nodes.Wolf3D_Outfit_Bottom.morphTargetDictionary
+              }
+              morphTargetInfluences={
+                nodes.Wolf3D_Outfit_Bottom.morphTargetInfluences
+              }
+            />
+          )}
+          {legsItem === "2" && (
+            <skinnedMesh
+              name="Wolf3D_Outfit_Bottom_2"
+              geometry={nodes.Wolf3D_Outfit_Bottom_2.geometry}
+              material={materials.Wolf3D_Outfit_Bottom_2}
+              skeleton={nodes.Wolf3D_Outfit_Bottom_2.skeleton}
+              ref={bottom}
+              morphTargetDictionary={
+                nodes.Wolf3D_Outfit_Bottom_2.morphTargetDictionary
+              }
+              morphTargetInfluences={
+                nodes.Wolf3D_Outfit_Bottom_2.morphTargetInfluences
+              }
+            />
+          )}
+          {feetItem === "1" && (
+            <skinnedMesh
+              name="Wolf3D_Outfit_Footwear"
+              geometry={nodes.Wolf3D_Outfit_Footwear.geometry}
+              material={materials.Wolf3D_Outfit_Footwear}
+              skeleton={nodes.Wolf3D_Outfit_Footwear.skeleton}
+              ref={footwear}
+              morphTargetDictionary={
+                nodes.Wolf3D_Outfit_Footwear.morphTargetDictionary
+              }
+              morphTargetInfluences={
+                nodes.Wolf3D_Outfit_Footwear.morphTargetInfluences
+              }
+            />
+          )}
+          {feetItem === "2" && (
+            <skinnedMesh
+              name="Wolf3D_Outfit_Footwear_2"
+              geometry={nodes.Wolf3D_Outfit_Footwear_2.geometry}
+              material={materials.Wolf3D_Outfit_Footwear_2}
+              skeleton={nodes.Wolf3D_Outfit_Footwear_2.skeleton}
+              ref={footwear}
+              morphTargetDictionary={
+                nodes.Wolf3D_Outfit_Footwear_2.morphTargetDictionary
+              }
+              morphTargetInfluences={
+                nodes.Wolf3D_Outfit_Footwear_2.morphTargetInfluences
+              }
+            />
+          )}
+          {torsoItem === "2" && (
+            <skinnedMesh
+              name="Wolf3D_Outfit_Top"
+              geometry={nodes.Wolf3D_Outfit_Top.geometry}
+              material={materials.Wolf3D_Outfit_Top}
+              skeleton={nodes.Wolf3D_Outfit_Top.skeleton}
+              ref={torso}
+              morphTargetDictionary={
+                nodes.Wolf3D_Outfit_Top.morphTargetDictionary
+              }
+              morphTargetInfluences={
+                nodes.Wolf3D_Outfit_Top.morphTargetInfluences
+              }
+            />
+          )}
+          {torsoItem === "1" && (
+            <skinnedMesh
+              name="Wolf3D_Outfit_Top_2"
+              geometry={nodes.Wolf3D_Outfit_Top_2.geometry}
+              material={materials.Wolf3D_Outfit_Top_2}
+              skeleton={nodes.Wolf3D_Outfit_Top_2.skeleton}
+              ref={torso}
+              morphTargetDictionary={
+                nodes.Wolf3D_Outfit_Top_2.morphTargetDictionary
+              }
+              morphTargetInfluences={
+                nodes.Wolf3D_Outfit_Top_2.morphTargetInfluences
+              }
+            />
+          )}
           <skinnedMesh
             name="Wolf3D_Teeth"
             geometry={nodes.Wolf3D_Teeth.geometry}

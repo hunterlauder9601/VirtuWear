@@ -20,7 +20,7 @@ interface ProductCardProps {
       >
         <figure>
           <Image
-            src={product.imageUrl}
+            src={product.imageUrl[0]}
             alt={product.name}
             width={800}
             height={400}

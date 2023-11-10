@@ -1,19 +1,23 @@
-import React from "react";
-import prisma from "@/lib/db/prisma";
-import Customizer from "./Customizer";
+"use client";
 
-const getAllClothes = async (category: string) => {
-  return await prisma.product.findMany({
-    orderBy: { id: "desc" },
-    where: { category },
-  });
+import { Canvas } from "@react-three/fiber";
+import Experience from "../../components/Experience";
+import Configurator from "./Configurator";
+import { ConfiguratorProvider } from "@/contexts/Customization";
+
+const Customizer = () => {
+  return (
+    <ConfiguratorProvider>
+      <div className="h-screen w-full">
+        <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 9], fov: 15 }}>
+          <color attach="background" args={["#27224f"]} />
+          <fog attach="fog" args={["#27224f", 10, 20]} />
+          <Experience />
+        </Canvas>
+        <Configurator/>
+      </div>
+    </ConfiguratorProvider>
+  );
 };
 
-type Props = {};
-
-const page = async (props: Props) => {
-  const products = await getAllClothes("men");
-  return <Customizer data={products}/>;
-};
-
-export default page;
+export default Customizer;

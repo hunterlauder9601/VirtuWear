@@ -1,7 +1,4 @@
-// "use server";
-
-//todo: make customizer use cached product page data or make product page use customizer data (whichever comes first, for men and women datas separately)
-//
+"use server"
 
 import prisma from "./db/prisma";
 import { redis } from "./db/redis";
@@ -45,34 +42,6 @@ export const getAllItems = async (
   }
 };
 
-// export const getClothingItems = cache(
-//   async (
-//     category: string,
-//     clothesCategory: string,
-//     currentPage: number,
-//     pageSize: number,
-//     heroItemCount: number,
-//   ) => {
-//     if (clothesCategory === "all") {
-//       return await prisma.product.findMany({
-//         orderBy: { id: "desc" },
-//         where: { category },
-//         skip:
-//           (currentPage - 1) * pageSize +
-//           (currentPage === 1 ? 0 : heroItemCount),
-//         take: pageSize + (currentPage === 1 ? heroItemCount : 0),
-//       });
-//     }
-//     return await prisma.product.findMany({
-//       orderBy: { id: "desc" },
-//       where: { category, clothesCategory },
-//       skip:
-//         (currentPage - 1) * pageSize + (currentPage === 1 ? 0 : heroItemCount),
-//       take: pageSize + (currentPage === 1 ? heroItemCount : 0),
-//     });
-//   },
-// );
-
 export const getClothingItems = async (
   category: string,
   clothesCategory: string,
@@ -114,28 +83,6 @@ export const getClothingItems = async (
     throw error;
   }
 };
-
-// export const getMiscItems = async (
-//   category: string,
-//   currentPage: number,
-//   pageSize: number,
-//   heroItemCount: number,
-// ) => {
-//   return await prisma.product.findMany({
-//     orderBy: { id: "desc" },
-//     where: { category },
-//     skip:
-//       (currentPage - 1) * pageSize + (currentPage === 1 ? 0 : heroItemCount),
-//     take: pageSize + (currentPage === 1 ? heroItemCount : 0),
-//   });
-// };
-
-// export const getAllClothes = async (category: string) => {
-//   return await prisma.product.findMany({
-//     orderBy: { id: "desc" },
-//     where: { category },
-//   });
-// };
 
 export const getMiscItems = async (
   category: string,
@@ -206,14 +153,15 @@ export const productCount = async (
   try {
     const cached = await redis.get(cacheKey);
     if (cached) {
+      console.log(JSON.parse(cached));
       return JSON.parse(cached);
     }
 
     let whereCondition = {};
-    if(clothesCategory !== "all" && category !== "all") {
-      whereCondition = {category, clothesCategory}
-    } else if(category !== "all") {
-      whereCondition = {category}
+    if (clothesCategory !== "all" && category !== "all") {
+      whereCondition = { category, clothesCategory };
+    } else if (category !== "all") {
+      whereCondition = { category };
     }
 
     const query = await prisma.product.count({
