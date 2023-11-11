@@ -1,6 +1,7 @@
-import { useConfigurator } from "../contexts/Customization";
+import { useConfigurator } from "../../contexts/Customization";
 import { useAnimations, useFBX, useGLTF } from "@react-three/drei";
 import { useEffect, useRef, useLayoutEffect } from "react";
+import * as Three from "three";
 
 export default function Model(props) {
   const group = useRef();
@@ -25,6 +26,8 @@ export default function Model(props) {
     sexSelection,
     headItem,
     headSelectedColor,
+    glassesItem,
+    glassesSelectedColor,
     torsoItem,
     torsoSelectedColor,
     legsItem,
@@ -33,7 +36,44 @@ export default function Model(props) {
     feetSelectedColor,
   } = useConfigurator();
 
-  // Disable frustum culling
+
+  useEffect(() => {
+    if (headItem === "1") {
+      materials.Wolf3D_Headwear.color.set = new Three.Color(headSelectedColor);
+    }
+  }, [headItem, headSelectedColor, materials]);
+  
+  useEffect(() => {
+    if (glassesItem === "1") {
+      materials.Wolf3D_Glasses.color = new Three.Color(glassesSelectedColor);
+    }
+  }, [glassesItem, glassesSelectedColor, materials]);
+
+  useEffect(() => {
+    if(torsoItem === "1") {
+      materials.Wolf3D_Outfit_Top_2.color = new Three.Color(torsoSelectedColor);
+    } else if(torsoItem === "2") {
+      materials.Wolf3D_Outfit_Top.color = new Three.Color(torsoSelectedColor);
+    }
+  }, [torsoSelectedColor, torsoItem, materials]);
+
+  useEffect(() => {
+    if (legsItem === "1") {
+      materials.Wolf3D_Outfit_Bottom.color = new Three.Color(legsSelectedColor);
+    } else if (legsItem === "2") {
+      materials.Wolf3D_Outfit_Bottom_2.color = new Three.Color(legsSelectedColor);
+    }
+  }, [legsItem, legsSelectedColor, materials]);
+  
+  useEffect(() => {
+    if (feetItem === "1") {
+      materials.Wolf3D_Outfit_Footwear.color = new Three.Color(feetSelectedColor);
+    } else if (feetItem === "2") {
+      materials.Wolf3D_Outfit_Footwear_2.color = new Three.Color(feetSelectedColor);
+    }
+  }, [feetItem, feetSelectedColor, materials]);
+
+  // Disable frustum culling to avoid weird visual side effects
   useLayoutEffect(() => {
     if (group.current) {
       group.current.traverse((obj) => {
@@ -70,13 +110,15 @@ export default function Model(props) {
             morphTargetDictionary={nodes.Wolf3D_Body.morphTargetDictionary}
             morphTargetInfluences={nodes.Wolf3D_Body.morphTargetInfluences}
           />
-          <skinnedMesh
-            name="Wolf3D_Glasses"
-            geometry={nodes.Wolf3D_Glasses.geometry}
-            material={materials.Wolf3D_Glasses}
-            skeleton={nodes.Wolf3D_Glasses.skeleton}
-            ref={glasses}
-          />
+          {glassesItem === "1" && (
+            <skinnedMesh
+              name="Wolf3D_Glasses"
+              geometry={nodes.Wolf3D_Glasses.geometry}
+              material={materials.Wolf3D_Glasses}
+              skeleton={nodes.Wolf3D_Glasses.skeleton}
+              ref={glasses}
+            />
+          )}
           <skinnedMesh
             name="Wolf3D_Head"
             geometry={nodes.Wolf3D_Head.geometry}

@@ -11,19 +11,18 @@ const Configurator = () => {
     setMaleProducts,
     femaleProducts,
     setFemaleProducts,
-    headItem,
     setHeadItem,
     headSelectedColor,
     setHeadSelectedColor,
-    torsoItem,
+    setGlassesItem,
+    glassesSelectedColor,
+    setGlassesSelectedColor,
     setTorsoItem,
     torsoSelectedColor,
     setTorsoSelectedColor,
-    legsItem,
     setLegsItem,
     legsSelectedColor,
     setLegsSelectedColor,
-    feetItem,
     setFeetItem,
     feetSelectedColor,
     setFeetSelectedColor,
@@ -34,6 +33,7 @@ const Configurator = () => {
   const [partsOptions, setPartsOptions] = useState({});
   const [selectedIndex, setSelectedIndex] = useState({
     HEAD: 0,
+    GLASSES: 0,
     TORSO: 0,
     LEGS: 0,
     FEET: 0,
@@ -53,7 +53,11 @@ const Configurator = () => {
             const newPartsOptions = products.reduce((options, product) => {
               const category = product.clothesCategory.toUpperCase();
               if (!options[category]) {
-                options[category] = [];
+                if(category === "GLASSES" || category === "HEAD") {
+                  options[category] = [ {name: "None", model: "0"} ];
+                } else {
+                  options[category] = [];
+                }
               }
               const productDetails = {
                 name: product.name,
@@ -85,12 +89,16 @@ const Configurator = () => {
 
   useEffect(() => {
     if (selectedPart && partsOptions[selectedPart]) {
-      const selectedItem = partsOptions[selectedPart][selectedIndex[selectedPart]];
+      const selectedItem =
+        partsOptions[selectedPart][selectedIndex[selectedPart]];
       const modelString = selectedItem.model;
       console.log(modelString);
       switch (selectedPart) {
         case "HEAD":
           setHeadItem(modelString);
+          break;
+        case "GLASSES":
+          setGlassesItem(modelString);
           break;
         case "TORSO":
           setTorsoItem(modelString);
@@ -112,6 +120,9 @@ const Configurator = () => {
       case "HEAD":
         setHeadSelectedColor(color);
         break;
+      case "GLASSES":
+        setGlassesSelectedColor(color);
+        break;
       case "TORSO":
         setTorsoSelectedColor(color);
         break;
@@ -120,6 +131,28 @@ const Configurator = () => {
         break;
       case "FEET":
         setFeetSelectedColor(color);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const resestColorSelect = () => {
+    switch (selectedPart) {
+      case "HEAD":
+        setHeadSelectedColor(null);
+        break;
+      case "GLASSES":
+        setGlassesSelectedColor(null);
+        break;
+      case "TORSO":
+        setTorsoSelectedColor(null);
+        break;
+      case "LEGS":
+        setLegsSelectedColor(null);
+        break;
+      case "FEET":
+        setFeetSelectedColor(null);
         break;
       default:
         break;
@@ -147,17 +180,17 @@ const Configurator = () => {
   return (
     <div className="pointer-events-none absolute right-0 top-0 h-full w-full text-lg text-white">
       <div className="flex h-full w-full items-center justify-end">
-        <div className="pointer-events-auto flex h-fit max-h-[75%] w-[40%] flex-col overflow-y-auto rounded-3xl border-2 border-white md:w-[30%] lg:w-[25%]">
+        <div className="pointer-events-auto flex h-fit max-h-[75%] w-[40%] flex-col overflow-y-auto rounded-l-3xl border-2 border-r-0 border-white md:w-[30%] lg:w-[25%]">
           {!sexSelection ? (
             <>
               <button
-                onClick={() => setSexSelection("men")}
+                onClick={() => {setSexSelection("men"); setSelectedPart("MENU2");}}
                 className="border-b border-white/60 py-6 text-xl font-bold tracking-wider hover:bg-neutral/25"
               >
                 MEN
               </button>
               <button
-                onClick={() => setSexSelection("women")}
+                onClick={() => {setSexSelection("women"); setSelectedPart("MENU2");}}
                 className="py-6 text-xl font-bold tracking-wider hover:bg-neutral/25"
               >
                 WOMEN
@@ -166,7 +199,7 @@ const Configurator = () => {
           ) : !partsOptions[selectedPart] ? (
             <>
               <button
-                onClick={() => setSexSelection(null)}
+                onClick={() => {setSexSelection(null); setSelectedPart("MENU1");}}
                 className="flex items-center gap-4 border-b border-white/60 p-4 hover:bg-neutral/25"
               >
                 <HiReply size={20} />
@@ -175,7 +208,7 @@ const Configurator = () => {
               {Object.keys(partsOptions).map((part) => (
                 <button
                   key={part}
-                  onClick={() => setSelectedPart(part)}
+                  onClick={() => {setSelectedPart(part)}}
                   className="py-6 text-xl font-bold tracking-wider hover:bg-neutral/25"
                 >
                   {part}
@@ -185,7 +218,7 @@ const Configurator = () => {
           ) : (
             <>
               <button
-                onClick={() => setSelectedPart("MENU")}
+                onClick={() => setSelectedPart("MENU2")}
                 className="flex items-center gap-4 border-b border-white/60 p-4 hover:bg-neutral/25"
               >
                 <HiReply size={20} />
@@ -201,7 +234,7 @@ const Configurator = () => {
                     <HiArrowLeft
                       size={25}
                       className="cursor-pointer duration-100 ease-linear hover:scale-110"
-                      onClick={handlePrevItem}
+                      onClick={() => {handlePrevItem(); resestColorSelect();}}
                     />
                     {
                       partsOptions[selectedPart][selectedIndex[selectedPart]]
@@ -210,7 +243,7 @@ const Configurator = () => {
                     <HiArrowRight
                       size={25}
                       className="cursor-pointer duration-100 ease-linear hover:scale-110"
-                      onClick={handleNextItem}
+                      onClick={() => {handleNextItem(); resestColorSelect();}}
                     />
                   </div>
                 )}
@@ -229,6 +262,8 @@ const Configurator = () => {
                           switch (selectedPart) {
                             case "HEAD":
                               return headSelectedColor;
+                            case "GLASSES":
+                              return glassesSelectedColor;
                             case "TORSO":
                               return torsoSelectedColor;
                             case "LEGS":

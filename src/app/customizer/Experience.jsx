@@ -1,5 +1,3 @@
-"use client";
-
 import { MeshReflectorMaterial, OrbitControls } from "@react-three/drei";
 import { useConfigurator } from "@/contexts/Customization";
 import { Suspense, useRef, useEffect } from "react";
@@ -27,6 +25,7 @@ const Experience = () => {
 
     switch (selectedPart) {
       case "HEAD":
+      case "GLASSES":
         position = { x: 0, y: 0.65, z: 2.5 };
         lookAt = { x: 0, y: 0.65, z: 0 };
         break;
@@ -42,7 +41,7 @@ const Experience = () => {
         position = { x: 0, y: -0.4, z: 4 };
         lookAt = { x: 0, y: -0.7, z: 0 };
         break;
-      case "MENU":
+      default:
         position = { x: 0, y: 0, z: 9 };
         lookAt = { x: 0, y: 0, z: 0 };
     }
@@ -67,14 +66,13 @@ const Experience = () => {
     camera.updateProjectionMatrix();
   }, [camera]);
 
-
   return (
     <>
       <OrbitControls
         ref={controlsRef}
         target={[0, 0, 0]}
         maxPolarAngle={Math.PI / 2}
-        minDistance={1}  // Set minimum distance to avoid clipping
+        minDistance={1} // Set minimum distance to avoid clipping
         maxDistance={50} // Set maximum distance as per your need
       />
       <Tween />
@@ -119,27 +117,6 @@ const Experience = () => {
       </mesh>
     </>
   );
-
-  // if (selectedPart === null) {
-  //   return (
-  // <PresentationControls
-  //   speed={1.5}
-  //   zoom={1.5}
-  //   global
-  //   polar={[-0.1, Math.PI / 4]}
-  //   rotation={[Math.PI / 16, Math.PI / 8, 0]}
-  // >
-  //       <Content />
-  //     </PresentationControls>
-  //   );
-  // } else {
-  //   return (
-  //     <>
-  //       <CameraHandler selectedPart={selectedPart} />
-  //       <Content />
-  //     </>
-  //   );
-  // }
 };
 
 export default Experience;

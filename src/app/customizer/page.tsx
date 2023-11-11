@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import Experience from "../../components/Experience";
+import Experience from "./Experience";
 import Configurator from "./Configurator";
 import { ConfiguratorProvider } from "@/contexts/Customization";
 
