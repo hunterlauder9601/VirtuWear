@@ -1,5 +1,5 @@
 import ProductCard from "@/components/ProductCard";
-import prisma from "@/lib/db/prisma";
+import prismaBase from "@/lib/db/prisma";
 import { getClothingItems, productCount } from "@/lib/dbMethods";
 import Link from "next/link";
 import PaginationBar from "@/components/PaginationBar";

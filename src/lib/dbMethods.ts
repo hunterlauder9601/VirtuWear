@@ -1,7 +1,8 @@
-"use server"
+"use server";
 
-import prisma from "./db/prisma";
+import prismaBase from "./db/prisma";
 import { redis } from "./db/redis";
+import { notFound } from "next/navigation";
 
 export const getAllItems = async (
   currentPage: number,
@@ -16,7 +17,7 @@ export const getAllItems = async (
       return JSON.parse(cached);
     }
 
-    const query = await prisma.product.findMany({
+    const query = await prismaBase.product.findMany({
       select: {
         id: true,
         name: true,
@@ -59,7 +60,7 @@ export const getClothingItems = async (
     const whereCondition =
       clothesCategory === "all" ? { category } : { category, clothesCategory };
 
-    const query = await prisma.product.findMany({
+    const query = await prismaBase.product.findMany({
       select: {
         id: true,
         name: true,
@@ -96,7 +97,7 @@ export const getMiscItems = async (
       return JSON.parse(cached);
     }
 
-    const query = await prisma.product.findMany({
+    const query = await prismaBase.product.findMany({
       select: {
         id: true,
         name: true,
@@ -129,7 +130,7 @@ export const getAllClothes = async (category: string) => {
       return JSON.parse(cached);
     }
 
-    const query = await prisma.product.findMany({
+    const query = await prismaBase.product.findMany({
       orderBy: { id: "desc" },
       where: { category },
     });
@@ -164,7 +165,7 @@ export const productCount = async (
       whereCondition = { category };
     }
 
-    const query = await prisma.product.count({
+    const query = await prismaBase.product.count({
       where: whereCondition,
     });
 
@@ -174,6 +175,28 @@ export const productCount = async (
     return query;
   } catch (error) {
     console.error("Failed to fetch product count", error);
+    throw error;
+  }
+};
+
+export const getProduct = async (id: string) => {
+  const cacheKey = `product-${id}`;
+  try {
+    const cached = await redis.get(cacheKey);
+    if (cached) {
+      return JSON.parse(cached);
+    }
+
+    const product = await prismaBase.product.findUnique({ where: { id } });
+
+    if (!product) return notFound();
+
+    await redis.set(cacheKey, JSON.stringify(product));
+    await redis.expire(cacheKey, 3600);
+
+    return product;
+  } catch (error) {
+    console.error("Failed to unique product: ", error);
     throw error;
   }
 };

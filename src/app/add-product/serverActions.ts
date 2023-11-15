@@ -1,5 +1,5 @@
 "use server";
-import prisma from "@/lib/db/prisma";
+import prismaBase from "@/lib/db/prisma";
 import { redirect } from "next/navigation";
 
 export async function addProduct(formData: FormData) {
@@ -8,7 +8,7 @@ export async function addProduct(formData: FormData) {
   const imageUrl = formData.get("imageUrl")?.toString().split(/\s+/);
   const price = Number(formData.get("price") || 0);
 
-  let colorsArray;
+  let colorsArray: string[] = [];
   let model;
   let clothesCategory;
 
@@ -21,6 +21,9 @@ export async function addProduct(formData: FormData) {
     clothesCategory = formData.get("clothesCategory")?.toString();
   }
 
+  //adds to start of array
+  colorsArray.unshift("");
+
   if (
     !name ||
     !description ||
@@ -32,7 +35,7 @@ export async function addProduct(formData: FormData) {
     throw Error("Missing required fields");
   }
 
-  await prisma.product.create({
+  await prismaBase.product.create({
     data: {
       name,
       description,

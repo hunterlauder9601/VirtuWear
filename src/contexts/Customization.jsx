@@ -11,19 +11,19 @@ const ConfiguratorProvider = ({ children }) => {
   const [femaleProducts, setFemaleProducts] = useState(null);
 
   const [headItem, setHeadItem] = useState("0");
-  const [headSelectedColor, setHeadSelectedColor] = useState(null);
+  const [headSelectedColor, setHeadSelectedColor] = useState("");
 
   const [glassesItem, setGlassesItem] = useState("0");
-  const [glassesSelectedColor, setGlassesSelectedColor] = useState(null);
+  const [glassesSelectedColor, setGlassesSelectedColor] = useState("");
 
   const [torsoItem, setTorsoItem] = useState("1");
-  const [torsoSelectedColor, setTorsoSelectedColor] = useState(null);
+  const [torsoSelectedColor, setTorsoSelectedColor] = useState("");
 
   const [legsItem, setLegsItem] = useState("1");
-  const [legsSelectedColor, setLegsSelectedColor] = useState(null);
+  const [legsSelectedColor, setLegsSelectedColor] = useState("");
 
   const [feetItem, setFeetItem] = useState("1");
-  const [feetSelectedColor, setFeetSelectedColor] = useState(null);
+  const [feetSelectedColor, setFeetSelectedColor] = useState("");
 
   // State for selected body part for camera zooming
   const [selectedPart, setSelectedPart] = useState(null);

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .navBarButton {
-  @apply py-1 px-2 border-b-2 border-neutral text-white hover:border-primary hover:text-primary rounded-sm transition-all duration-150 ease-linear
+  @apply pb-2 px-2 border-b-2 border-neutral text-white hover:border-primary hover:text-primary rounded-sm transition-all duration-150 ease-linear
 }
 
 .ccButtonMain {

@@ -1,6 +1,6 @@
 "use client";
 import { ChangeEvent, useState } from "react";
-import { addProduct } from "@/lib/serverActions";
+import { addProduct } from "@/app/add-product/serverActions";
 import FormSubmitButton from "../../components/FormSubmitButton";
 
 export const Page = () => {

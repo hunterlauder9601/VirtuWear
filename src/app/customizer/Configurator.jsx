@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import { HiArrowLeft, HiArrowRight, HiReply } from "react-icons/hi";
 import { useConfigurator } from "@/contexts/Customization";
 import { getAllClothes } from "@/lib/dbMethods";
+import { incrementProductQuantity } from "../products/[id]/serverActions";
+import { useRouter } from "next/navigation";
+
+const domain = "http://localhost:3000";
 
 const Configurator = () => {
   const {
@@ -30,6 +34,8 @@ const Configurator = () => {
     setSelectedPart,
   } = useConfigurator();
 
+  const router = useRouter();
+
   const [partsOptions, setPartsOptions] = useState({});
   const [selectedIndex, setSelectedIndex] = useState({
     HEAD: 0,
@@ -53,13 +59,14 @@ const Configurator = () => {
             const newPartsOptions = products.reduce((options, product) => {
               const category = product.clothesCategory.toUpperCase();
               if (!options[category]) {
-                if(category === "GLASSES" || category === "HEAD") {
-                  options[category] = [ {name: "None", model: "0"} ];
+                if (category === "GLASSES" || category === "HEAD") {
+                  options[category] = [{ name: "None", model: "0" }];
                 } else {
                   options[category] = [];
                 }
               }
               const productDetails = {
+                id: product.id,
                 name: product.name,
                 price: product.price,
                 model: product.model,
@@ -84,6 +91,35 @@ const Configurator = () => {
       };
 
       fetchData();
+
+      if (Object.keys(partsOptions).length > 0) {
+        // Initialize model items for each part category
+        Object.keys(partsOptions).forEach((category) => {
+          const items = partsOptions[category];
+          if (items.length > 0) {
+            const modelString = items[0].model;
+            switch (category) {
+              case "HEAD":
+                setHeadItem(modelString);
+                break;
+              case "GLASSES":
+                setGlassesItem(modelString);
+                break;
+              case "TORSO":
+                setTorsoItem(modelString);
+                break;
+              case "LEGS":
+                setLegsItem(modelString);
+                break;
+              case "FEET":
+                setFeetItem(modelString);
+                break;
+              default:
+                break;
+            }
+          }
+        });
+      }
     }
   }, [sexSelection, femaleProducts, maleProducts]);
 
@@ -140,19 +176,19 @@ const Configurator = () => {
   const resestColorSelect = () => {
     switch (selectedPart) {
       case "HEAD":
-        setHeadSelectedColor(null);
+        setHeadSelectedColor("");
         break;
       case "GLASSES":
-        setGlassesSelectedColor(null);
+        setGlassesSelectedColor("");
         break;
       case "TORSO":
-        setTorsoSelectedColor(null);
+        setTorsoSelectedColor("");
         break;
       case "LEGS":
-        setLegsSelectedColor(null);
+        setLegsSelectedColor("");
         break;
       case "FEET":
-        setFeetSelectedColor(null);
+        setFeetSelectedColor("");
         break;
       default:
         break;
@@ -177,6 +213,43 @@ const Configurator = () => {
     });
   };
 
+  const handleCheckOut = async () => {
+    const cartItems = Object.keys(selectedIndex).map((part) => {
+      const selectedItem = partsOptions[part][selectedIndex[part]];
+      let selectedColor;
+      switch (part) {
+        case "HEAD":
+          selectedColor = headSelectedColor;
+          break;
+        case "GLASSES":
+          selectedColor = glassesSelectedColor;
+          break;
+        case "TORSO":
+          selectedColor = torsoSelectedColor;
+          break;
+        case "LEGS":
+          selectedColor = legsSelectedColor;
+          break;
+        case "FEET":
+          selectedColor = feetSelectedColor;
+          break;
+        default:
+          selectedColor = null;
+          break;
+      }
+      return { id: selectedItem.id, color: selectedColor };
+    });
+  
+    for (const item of cartItems) {
+      if (item.id) {
+        await incrementProductQuantity(item.id, item.color);
+      }
+    }
+  
+    router.push("/cart");
+  };
+
+  const categoryOrder = ["HEAD", "GLASSES", "TORSO", "LEGS", "FEET"];
   return (
     <div className="pointer-events-none absolute right-0 top-0 h-full w-full text-lg text-white">
       <div className="flex h-full w-full items-center justify-end">
@@ -184,13 +257,19 @@ const Configurator = () => {
           {!sexSelection ? (
             <>
               <button
-                onClick={() => {setSexSelection("men"); setSelectedPart("MENU2");}}
+                onClick={() => {
+                  setSexSelection("men");
+                  setSelectedPart("MENU2");
+                }}
                 className="border-b border-white/60 py-6 text-xl font-bold tracking-wider hover:bg-neutral/25"
               >
                 MEN
               </button>
               <button
-                onClick={() => {setSexSelection("women"); setSelectedPart("MENU2");}}
+                onClick={() => {
+                  setSexSelection("women");
+                  setSelectedPart("MENU2");
+                }}
                 className="py-6 text-xl font-bold tracking-wider hover:bg-neutral/25"
               >
                 WOMEN
@@ -199,21 +278,37 @@ const Configurator = () => {
           ) : !partsOptions[selectedPart] ? (
             <>
               <button
-                onClick={() => {setSexSelection(null); setSelectedPart("MENU1");}}
+                onClick={() => {
+                  setSexSelection(null);
+                  setSelectedPart("MENU1");
+                }}
                 className="flex items-center gap-4 border-b border-white/60 p-4 hover:bg-neutral/25"
               >
                 <HiReply size={20} />
                 <span>Go Back</span>
               </button>
-              {Object.keys(partsOptions).map((part) => (
-                <button
-                  key={part}
-                  onClick={() => {setSelectedPart(part)}}
-                  className="py-6 text-xl font-bold tracking-wider hover:bg-neutral/25"
-                >
-                  {part}
-                </button>
-              ))}
+              <button
+                onClick={() => {
+                  handleCheckOut();
+                }}
+                className="py-6 text-xl font-bold tracking-wider text-accent hover:bg-neutral/25"
+              >
+                CHECKOUT
+              </button>
+              {categoryOrder.map(
+                (category) =>
+                  partsOptions[category] && (
+                    <button
+                      key={category}
+                      onClick={() => {
+                        setSelectedPart(category);
+                      }}
+                      className="py-6 text-xl font-bold tracking-wider hover:bg-neutral/25"
+                    >
+                      {category}
+                    </button>
+                  ),
+              )}
             </>
           ) : (
             <>
@@ -230,20 +325,26 @@ const Configurator = () => {
                   {selectedPart} ITEMS
                 </h1>
                 {partsOptions[selectedPart] && (
-                  <div className="my-4 ml-2 flex items-center justify-center gap-4">
+                  <div className="my-4 ml-2 flex items-center justify-between gap-4">
                     <HiArrowLeft
-                      size={25}
+                      size={40}
                       className="cursor-pointer duration-100 ease-linear hover:scale-110"
-                      onClick={() => {handlePrevItem(); resestColorSelect();}}
+                      onClick={() => {
+                        handlePrevItem();
+                        resestColorSelect();
+                      }}
                     />
                     {
                       partsOptions[selectedPart][selectedIndex[selectedPart]]
                         .name
                     }
                     <HiArrowRight
-                      size={25}
+                      size={40}
                       className="cursor-pointer duration-100 ease-linear hover:scale-110"
-                      onClick={() => {handleNextItem(); resestColorSelect();}}
+                      onClick={() => {
+                        handleNextItem();
+                        resestColorSelect();
+                      }}
                     />
                   </div>
                 )}
@@ -278,6 +379,23 @@ const Configurator = () => {
                       />
                     ))}
                 </div>
+                {partsOptions[selectedPart]?.[selectedIndex[selectedPart]]
+                  .id && (
+                  <div className="mb-4">
+                    <a
+                      target="_blank"
+                      href={`${domain}/products/${
+                        partsOptions[selectedPart]?.[
+                          selectedIndex[selectedPart]
+                        ].id
+                      }`}
+                      rel="noopener noreferrer"
+                      className="text-xl font-bold tracking-wider underline"
+                    >
+                      Check Out Real Product
+                    </a>
+                  </div>
+                )}
               </div>
             </>
           )}
@@ -287,15 +405,36 @@ const Configurator = () => {
   );
 };
 
-const ColorBox = ({ color, selectedColor, onClick }) => (
-  <div
-    className="aspect-square w-12 cursor-pointer rounded-full border-2 duration-100 ease-linear hover:scale-110"
-    style={{
-      backgroundColor: `${color}`,
-      borderColor: color === selectedColor ? `#ffffff` : "#6b7280",
-    }}
-    onClick={onClick}
-  ></div>
-);
+export const ColorBox = ({ color, selectedColor, onClick }) => {
+  const boxStyle =
+    color === ""
+      ? {
+          backgroundImage: "linear-gradient(to right, black 50%, white 50%)",
+          borderColor: color === selectedColor ? `#ffffff` : "#6b7280",
+        }
+      : {
+          backgroundColor: color,
+          borderColor: color === selectedColor ? `#ffffff` : "#6b7280",
+        };
+
+  return color === "" ? (
+    <div
+      className="tooltip tooltip-top"
+      data-tip="Default"
+    >
+      <div
+        className="aspect-square w-12 cursor-pointer rounded-full border-2 duration-100 ease-linear hover:scale-110"
+        style={boxStyle}
+        onClick={onClick}
+      ></div>
+    </div>
+  ) : (
+    <div
+      className="aspect-square w-12 cursor-pointer rounded-full border-2 duration-100 ease-linear hover:scale-110"
+      style={boxStyle}
+      onClick={onClick}
+    ></div>
+  );
+};
 
 export default Configurator;

@@ -44,10 +44,10 @@ export default async function Home({
                   className="blur-3xl brightness-75 filter"
                 />
               </div>
-              <h1 className="z-10 mb-4 -skew-x-6 text-5xl font-bold shadow-xl">
+              <h1 className="z-10 mb-4 -skew-x-6 text-5xl font-bold">
                 VirtuWear
               </h1>
-              <h2 className="z-10 text-2xl font-bold shadow-lg">
+              <h2 className="z-10 text-2xl font-bold">
                 <TypewriterTitle />
               </h2>
             </div>
