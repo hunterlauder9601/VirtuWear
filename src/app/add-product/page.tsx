@@ -49,6 +49,7 @@ export const Page = () => {
           >
             <option value="men">Men</option>
             <option value="women">Women</option>
+            <option value="unisex">Unisex</option>
             <option value="misc">Misc</option>
           </select>
         </div>

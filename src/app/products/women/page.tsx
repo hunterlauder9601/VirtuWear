@@ -10,7 +10,7 @@ interface WomensProductsProps {
 export default async function WomensProducts({
   searchParams: { group = "all", page = "1" },
 }: WomensProductsProps) {
-  const categories = ["all", "head", "torso", "legs", "feet"];
+  const categories = ["all", "head", "glasses", "torso", "legs", "feet"];
 
   const currentPage = parseInt(page);
 

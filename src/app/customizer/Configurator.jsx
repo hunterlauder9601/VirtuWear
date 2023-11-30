@@ -120,6 +120,13 @@ const Configurator = () => {
           }
         });
       }
+      setSelectedIndex({
+        HEAD: 0,
+        GLASSES: 0,
+        TORSO: 0,
+        LEGS: 0,
+        FEET: 0,
+      });
     }
   }, [sexSelection, femaleProducts, maleProducts]);
 
@@ -128,7 +135,7 @@ const Configurator = () => {
       const selectedItem =
         partsOptions[selectedPart][selectedIndex[selectedPart]];
       const modelString = selectedItem.model;
-      console.log(modelString);
+      // console.log(modelString);
       switch (selectedPart) {
         case "HEAD":
           setHeadItem(modelString);
@@ -239,169 +246,178 @@ const Configurator = () => {
       }
       return { id: selectedItem.id, color: selectedColor };
     });
-  
+
     for (const item of cartItems) {
       if (item.id) {
         await incrementProductQuantity(item.id, item.color);
       }
     }
-  
+
     router.push("/cart");
   };
 
   const categoryOrder = ["HEAD", "GLASSES", "TORSO", "LEGS", "FEET"];
   return (
-    <div className="pointer-events-none absolute right-0 top-0 h-full w-full text-lg text-white">
-      <div className="flex h-full w-full items-center justify-end">
-        <div className="pointer-events-auto flex h-fit max-h-[75%] w-[40%] flex-col overflow-y-auto rounded-l-3xl border-2 border-r-0 border-white md:w-[30%] lg:w-[25%]">
-          {!sexSelection ? (
-            <>
-              <button
-                onClick={() => {
-                  setSexSelection("men");
-                  setSelectedPart("MENU2");
-                }}
-                className="border-b border-white/60 py-6 text-xl font-bold tracking-wider hover:bg-neutral/25"
-              >
-                MEN
-              </button>
-              <button
-                onClick={() => {
-                  setSexSelection("women");
-                  setSelectedPart("MENU2");
-                }}
-                className="py-6 text-xl font-bold tracking-wider hover:bg-neutral/25"
-              >
-                WOMEN
-              </button>
-            </>
-          ) : !partsOptions[selectedPart] ? (
-            <>
-              <button
-                onClick={() => {
-                  setSexSelection(null);
-                  setSelectedPart("MENU1");
-                }}
-                className="flex items-center gap-4 border-b border-white/60 p-4 hover:bg-neutral/25"
-              >
-                <HiReply size={20} />
-                <span>Go Back</span>
-              </button>
-              <button
-                onClick={() => {
-                  handleCheckOut();
-                }}
-                className="py-6 text-xl font-bold tracking-wider text-accent hover:bg-neutral/25"
-              >
-                CHECKOUT
-              </button>
-              {categoryOrder.map(
-                (category) =>
-                  partsOptions[category] && (
-                    <button
-                      key={category}
-                      onClick={() => {
-                        setSelectedPart(category);
-                      }}
-                      className="py-6 text-xl font-bold tracking-wider hover:bg-neutral/25"
-                    >
-                      {category}
-                    </button>
-                  ),
-              )}
-            </>
-          ) : (
-            <>
-              <button
-                onClick={() => setSelectedPart("MENU2")}
-                className="flex items-center gap-4 border-b border-white/60 p-4 hover:bg-neutral/25"
-              >
-                <HiReply size={20} />
-                <span>Go Back</span>
-              </button>
+    <>
+      {!sexSelection && (
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-full text-white">
+          <div className="flex h-full w-full items-center justify-center text-xl tracking-wider">
+            (Waiting for gender selection)
+          </div>
+        </div>
+      )}
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-full text-lg text-white">
+        <div className="flex h-full w-full items-center justify-end">
+          <div className="pointer-events-auto flex h-fit max-h-[75%] w-[40%] flex-col overflow-y-auto rounded-l-3xl border-2 border-r-0 border-white md:w-[30%] lg:w-[25%]">
+            {!sexSelection ? (
+              <>
+                <button
+                  onClick={() => {
+                    setSexSelection("men");
+                    setSelectedPart("MENU2");
+                  }}
+                  className="border-b border-white/60 py-6 text-xl font-bold tracking-wider hover:bg-neutral/25"
+                >
+                  MEN
+                </button>
+                <button
+                  onClick={() => {
+                    setSexSelection("women");
+                    setSelectedPart("MENU2");
+                  }}
+                  className="py-6 text-xl font-bold tracking-wider hover:bg-neutral/25"
+                >
+                  WOMEN
+                </button>
+              </>
+            ) : !partsOptions[selectedPart] ? (
+              <>
+                <button
+                  onClick={() => {
+                    setSexSelection(null);
+                    setSelectedPart("MENU1");
+                  }}
+                  className="flex items-center gap-4 border-b border-white/60 p-4 hover:bg-neutral/25"
+                >
+                  <HiReply size={20} />
+                  <span>Go Back</span>
+                </button>
+                <button
+                  onClick={() => {
+                    handleCheckOut();
+                  }}
+                  className="py-6 text-xl font-bold tracking-wider text-accent hover:bg-neutral/25"
+                >
+                  CHECKOUT
+                </button>
+                {categoryOrder.map(
+                  (category) =>
+                    partsOptions[category] && (
+                      <button
+                        key={category}
+                        onClick={() => {
+                          setSelectedPart(category);
+                        }}
+                        className="py-6 text-xl font-bold tracking-wider hover:bg-neutral/25"
+                      >
+                        {category}
+                      </button>
+                    ),
+                )}
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => setSelectedPart("MENU2")}
+                  className="flex items-center gap-4 border-b border-white/60 p-4 hover:bg-neutral/25"
+                >
+                  <HiReply size={20} />
+                  <span>Go Back</span>
+                </button>
 
-              <div className="px-4">
-                <h1 className="mt-2 text-xl font-bold tracking-wider">
-                  {selectedPart} ITEMS
-                </h1>
-                {partsOptions[selectedPart] && (
-                  <div className="my-4 ml-2 flex items-center justify-between gap-4">
-                    <HiArrowLeft
-                      size={40}
-                      className="cursor-pointer duration-100 ease-linear hover:scale-110"
-                      onClick={() => {
-                        handlePrevItem();
-                        resestColorSelect();
-                      }}
-                    />
-                    {
-                      partsOptions[selectedPart][selectedIndex[selectedPart]]
-                        .name
-                    }
-                    <HiArrowRight
-                      size={40}
-                      className="cursor-pointer duration-100 ease-linear hover:scale-110"
-                      onClick={() => {
-                        handleNextItem();
-                        resestColorSelect();
-                      }}
-                    />
-                  </div>
-                )}
-                <h1 className="text-xl font-bold tracking-wider">
-                  {selectedPart} COLORS
-                </h1>
-                <div className="my-4 ml-2 grid grid-cols-1 place-content-around justify-items-center gap-y-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                  {partsOptions[selectedPart] &&
-                    partsOptions[selectedPart][
-                      selectedIndex[selectedPart]
-                    ].colors?.map((color) => (
-                      <ColorBox
-                        key={color}
-                        color={color}
-                        selectedColor={(() => {
-                          switch (selectedPart) {
-                            case "HEAD":
-                              return headSelectedColor;
-                            case "GLASSES":
-                              return glassesSelectedColor;
-                            case "TORSO":
-                              return torsoSelectedColor;
-                            case "LEGS":
-                              return legsSelectedColor;
-                            case "FEET":
-                              return feetSelectedColor;
-                            default:
-                              return null;
-                          }
-                        })()}
-                        onClick={() => handleColorSelect(color)}
+                <div className="px-4">
+                  <h1 className="mt-2 text-xl font-bold tracking-wider">
+                    {selectedPart} ITEMS
+                  </h1>
+                  {partsOptions[selectedPart] && (
+                    <div className="my-4 ml-2 flex items-center justify-between gap-4">
+                      <HiArrowLeft
+                        size={40}
+                        className="cursor-pointer duration-100 ease-linear hover:scale-110"
+                        onClick={() => {
+                          handlePrevItem();
+                          resestColorSelect();
+                        }}
                       />
-                    ))}
-                </div>
-                {partsOptions[selectedPart]?.[selectedIndex[selectedPart]]
-                  .id && (
-                  <div className="mb-4">
-                    <a
-                      target="_blank"
-                      href={`${domain}/products/${
-                        partsOptions[selectedPart]?.[
-                          selectedIndex[selectedPart]
-                        ].id
-                      }`}
-                      rel="noopener noreferrer"
-                      className="text-xl font-bold tracking-wider underline"
-                    >
-                      Check Out Real Product
-                    </a>
+                      {
+                        partsOptions[selectedPart][selectedIndex[selectedPart]]
+                          .name
+                      }
+                      <HiArrowRight
+                        size={40}
+                        className="cursor-pointer duration-100 ease-linear hover:scale-110"
+                        onClick={() => {
+                          handleNextItem();
+                          resestColorSelect();
+                        }}
+                      />
+                    </div>
+                  )}
+                  <h1 className="text-xl font-bold tracking-wider">
+                    {selectedPart} COLORS
+                  </h1>
+                  <div className="my-4 ml-2 grid grid-cols-1 place-content-around justify-items-center gap-y-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                    {partsOptions[selectedPart] &&
+                      partsOptions[selectedPart][
+                        selectedIndex[selectedPart]
+                      ].colors?.map((color) => (
+                        <ColorBox
+                          key={color}
+                          color={color}
+                          selectedColor={(() => {
+                            switch (selectedPart) {
+                              case "HEAD":
+                                return headSelectedColor;
+                              case "GLASSES":
+                                return glassesSelectedColor;
+                              case "TORSO":
+                                return torsoSelectedColor;
+                              case "LEGS":
+                                return legsSelectedColor;
+                              case "FEET":
+                                return feetSelectedColor;
+                              default:
+                                return null;
+                            }
+                          })()}
+                          onClick={() => handleColorSelect(color)}
+                        />
+                      ))}
                   </div>
-                )}
-              </div>
-            </>
-          )}
+                  {partsOptions[selectedPart]?.[selectedIndex[selectedPart]]
+                    .id && (
+                    <div className="mb-4">
+                      <a
+                        target="_blank"
+                        href={`${domain}/products/${
+                          partsOptions[selectedPart]?.[
+                            selectedIndex[selectedPart]
+                          ].id
+                        }`}
+                        rel="noopener noreferrer"
+                        className="text-xl font-bold tracking-wider underline"
+                      >
+                        Check Out Real Product
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -418,10 +434,7 @@ export const ColorBox = ({ color, selectedColor, onClick }) => {
         };
 
   return color === "" ? (
-    <div
-      className="tooltip tooltip-top"
-      data-tip="Default"
-    >
+    <div className="tooltip tooltip-top" data-tip="Default">
       <div
         className="aspect-square w-12 cursor-pointer rounded-full border-2 duration-100 ease-linear hover:scale-110"
         style={boxStyle}

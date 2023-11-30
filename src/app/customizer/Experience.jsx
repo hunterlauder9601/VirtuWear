@@ -2,6 +2,7 @@ import { MeshReflectorMaterial, OrbitControls } from "@react-three/drei";
 import { useConfigurator } from "@/contexts/Customization";
 import { Suspense, useRef, useEffect } from "react";
 import Male from "./Male";
+import Female from "./Female";
 import TWEEN from "@tweenjs/tween.js";
 import { useFrame, useThree } from "@react-three/fiber";
 import { DoubleSide } from "three";
@@ -14,7 +15,7 @@ function Tween() {
 
 const Experience = () => {
   const { camera } = useThree();
-  const { selectedPart } = useConfigurator();
+  const { selectedPart, sexSelection } = useConfigurator();
   const controlsRef = useRef();
 
   useEffect(() => {
@@ -78,7 +79,13 @@ const Experience = () => {
       <Tween />
       <group position-y={-1}>
         <Suspense fallback={null}>
-          <Male />
+          {sexSelection === "women" ? (
+            <Female />
+          ) : sexSelection === "men" ? (
+            <Male />
+          ) : (
+            null
+          )}
         </Suspense>
       </group>
 

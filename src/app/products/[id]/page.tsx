@@ -34,7 +34,7 @@ export default async function ProductPage({
     <div className="flex max-h-fit min-h-screen w-full flex-col items-center justify-center bg-base-100 text-lg text-white">
       <div className="mt-[64px] flex h-full w-full flex-col items-center justify-center gap-4 p-4 xl:flex-row">
         <div className="flex h-full flex-col items-center justify-center">
-          <div className="carousel w-full">
+          <div className="carousel w-full min-w-[35vw]">
             {product.imageUrl.map((img, index) => (
               <div
                 id={`item${index}`}

@@ -1,5 +1,4 @@
 import ProductCard from "@/components/ProductCard";
-import prismaBase from "@/lib/db/prisma";
 import { getClothingItems, productCount } from "@/lib/dbMethods";
 import Link from "next/link";
 import PaginationBar from "@/components/PaginationBar";
@@ -11,7 +10,7 @@ interface MensProductsProps {
 export default async function MensProducts({
   searchParams: { group = "all", page = "1" },
 }: MensProductsProps) {
-  const categories = ["all", "head", "torso", "legs", "feet"];
+  const categories = ["all", "head", "glasses", "torso", "legs", "feet"];
 
   const currentPage = parseInt(page);
 

@@ -57,8 +57,27 @@ export const getClothingItems = async (
       return JSON.parse(cached);
     }
 
-    const whereCondition =
-      clothesCategory === "all" ? { category } : { category, clothesCategory };
+    // const whereCondition =
+    //   clothesCategory === "all" ? { category } : { category, clothesCategory };
+
+    let whereCondition;
+
+    if (clothesCategory === "all") {
+      whereCondition = {
+        OR: [{ category: "unisex" }, { category }],
+      };
+    } else {
+      // Retrieves items that are either unisex or match the specific category
+      // and also match the specific clothesCategory
+      whereCondition = {
+        AND: [
+          {
+            OR: [{ category: "unisex" }, { category }],
+          },
+          { clothesCategory },
+        ],
+      };
+    }
 
     const query = await prismaBase.product.findMany({
       select: {
@@ -132,7 +151,7 @@ export const getAllClothes = async (category: string) => {
 
     const query = await prismaBase.product.findMany({
       orderBy: { id: "desc" },
-      where: { category },
+      where: { OR: [{ category: "unisex" }, { category }] },
     });
 
     await redis.set(cacheKey, JSON.stringify(query));
@@ -160,9 +179,16 @@ export const productCount = async (
 
     let whereCondition = {};
     if (clothesCategory !== "all" && category !== "all") {
-      whereCondition = { category, clothesCategory };
+      whereCondition = {
+        AND: [
+          {
+            OR: [{ category: "unisex" }, { category }],
+          },
+          { clothesCategory },
+        ],
+      };
     } else if (category !== "all") {
-      whereCondition = { category };
+      whereCondition = { OR: [{ category: "unisex" }, { category }] };
     }
 
     const query = await prismaBase.product.count({

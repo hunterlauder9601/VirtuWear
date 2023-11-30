@@ -3,7 +3,7 @@ import { useAnimations, useFBX, useGLTF } from "@react-three/drei";
 import { useEffect, useRef, useLayoutEffect } from "react";
 import * as Three from "three";
 
-export default function Model(props) {
+export default function Male(props) {
   const group = useRef();
   const headwear = useRef();
   const torso = useRef();
@@ -11,7 +11,7 @@ export default function Model(props) {
   const bottom = useRef();
   const footwear = useRef();
 
-  const { nodes, materials } = useGLTF("compose_model.glb");
+  const { nodes, materials } = useGLTF("composite_male.glb");
   const { animations: standingAnimation } = useFBX("standing.fbx");
 
   standingAnimation[0].name = "Standing";
@@ -23,7 +23,6 @@ export default function Model(props) {
   }, [actions]);
 
   const {
-    sexSelection,
     headItem,
     headSelectedColor,
     glassesItem,

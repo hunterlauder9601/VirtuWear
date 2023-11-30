@@ -50,6 +50,9 @@ export default async function Home({
               <h2 className="z-10 text-2xl font-bold">
                 <TypewriterTitle />
               </h2>
+              <Link href="/customizer" className="z-10 ccButtonMain btn border-0 mt-8">
+                Try 3D Customizer
+              </Link>
             </div>
             <div className="hero rounded-xl bg-base-200">
               <div className="hero-content flex-col lg:flex-row">
