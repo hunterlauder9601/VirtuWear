@@ -1,28 +1,32 @@
 import { MeshReflectorMaterial, OrbitControls } from "@react-three/drei";
 import { useConfigurator } from "@/contexts/Customization";
-import { Suspense, useRef, useEffect } from "react";
+import { Suspense, useRef, useEffect, useState} from "react";
 import Male from "./Male";
 import Female from "./Female";
 import TWEEN from "@tweenjs/tween.js";
 import { useFrame, useThree } from "@react-three/fiber";
 import { DoubleSide } from "three";
 
-function Tween() {
-  useFrame(() => {
-    TWEEN.update();
-  });
-}
 
-const Experience = () => {
+
+const Experience = ( {setIsTransitioning } ) => {
   const { camera } = useThree();
   const { selectedPart, sexSelection } = useConfigurator();
   const controlsRef = useRef();
+
+  function Tween() {
+    useFrame(() => {
+      TWEEN.update();
+    });
+  }
 
   useEffect(() => {
     if (!controlsRef.current || !selectedPart) {
       return;
     }
     let position, lookAt;
+
+    setIsTransitioning(true);
 
     switch (selectedPart) {
       case "HEAD":
@@ -57,7 +61,9 @@ const Experience = () => {
     new TWEEN.Tween(camera.position)
       .to(position, 3000)
       .easing(TWEEN.Easing.Cubic.Out)
+      .onComplete(() => setIsTransitioning(false))
       .start();
+
   }, [selectedPart, controlsRef, camera.position]);
 
   useEffect(() => {
@@ -68,13 +74,13 @@ const Experience = () => {
   }, [camera]);
 
   return (
-    <>
+    <group>
       <OrbitControls
         ref={controlsRef}
         target={[0, 0, 0]}
         maxPolarAngle={Math.PI / 2}
         minDistance={1} // Set minimum distance to avoid clipping
-        maxDistance={50} // Set maximum distance as per your need
+        maxDistance={15} // Set maximum distance as per your need
       />
       <Tween />
       <group position-y={-1}>
@@ -122,7 +128,7 @@ const Experience = () => {
           metalness={0.5}
         />
       </mesh>
-    </>
+    </group>
   );
 };
 

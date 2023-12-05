@@ -1,8 +1,26 @@
 "use server";
 import prismaBase from "@/lib/db/prisma";
+import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+
+export async function protectPath() {
+  const session = await getServerSession(authOptions);
+
+  // Check if the user is an admin
+  if (!session || session.user.role !== "admin") {
+    redirect("/");
+  }
+}
 
 export async function addProduct(formData: FormData) {
+  const session = await getServerSession(authOptions);
+
+  // Check if the user is an admin
+  if (!session || session.user.role !== "admin") {
+    throw Error("Unauthorized: Only admins can add products");
+  }
+
   const name = formData.get("name")?.toString();
   const description = formData.get("description")?.toString();
   const imageUrl = formData.get("imageUrl")?.toString().split(/\s+/);

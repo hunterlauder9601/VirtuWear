@@ -2,6 +2,10 @@ import ProductCard from "@/components/ProductCard";
 import { getMiscItems, productCount } from "@/lib/dbMethods";
 import PaginationBar from "@/components/PaginationBar";
 
+export const metadata = {
+  title: "Misc Products - VirtuWear",
+};
+
 interface MiscProductsProps {
   searchParams: { page: string };
 }
@@ -26,7 +30,7 @@ export default async function MiscProducts({
           MISC PRODUCTS
         </h1>
         <div className="my-4 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {products.map((item) => (
+          {products.map((item : any) => (
             <ProductCard key={item.id} product={item} />
           ))}
         </div>

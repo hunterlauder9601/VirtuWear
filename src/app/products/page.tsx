@@ -1,10 +1,10 @@
-import React from "react";
 import Link from "next/link";
 
-type Props = {};
+export const metadata = {
+  title: "Products - VirtuWear",
+};
 
-const Products = async (props: Props) => {
-
+const Products = async () => {
   return (
     <div className="flex max-h-fit min-h-[calc(100vh-65px)] w-full flex-col items-center justify-center bg-base-100 text-white">
       <div className="mt-[64px] flex h-full w-full max-w-6xl flex-col items-center justify-center p-4">

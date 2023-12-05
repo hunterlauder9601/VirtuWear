@@ -127,6 +127,11 @@ const Configurator = () => {
         LEGS: 0,
         FEET: 0,
       });
+      setHeadSelectedColor("");
+      setGlassesSelectedColor("");
+      setTorsoSelectedColor("");
+      setLegsSelectedColor("");
+      setFeetSelectedColor("");
     }
   }, [sexSelection, femaleProducts, maleProducts]);
 
@@ -259,16 +264,18 @@ const Configurator = () => {
   const categoryOrder = ["HEAD", "GLASSES", "TORSO", "LEGS", "FEET"];
   return (
     <>
-      {!sexSelection && (
-        <div className="pointer-events-none absolute right-0 top-0 h-full w-full text-white">
-          <div className="flex h-full w-full items-center justify-center text-xl tracking-wider">
-            (Waiting for gender selection)
-          </div>
-        </div>
-      )}
       <div className="pointer-events-none absolute right-0 top-0 h-full w-full text-lg text-white">
         <div className="flex h-full w-full items-center justify-end">
-          <div className="pointer-events-auto flex h-fit max-h-[75%] w-[40%] flex-col overflow-y-auto rounded-l-3xl border-2 border-r-0 border-white md:w-[30%] lg:w-[25%]">
+          {!sexSelection && (
+            <div className="mr-[15%] -skew-x-2 bg-neutral p-2 text-xl font-bold tracking-widest">
+              (WAITING FOR GENDER SELECTION)
+            </div>
+          )}
+          <div
+            className="scrollbar scrollbar-thumb-neutral scrollbar-track-white pointer-events-auto flex h-fit max-h-[75%] w-[40%] 
+          flex-col overflow-y-auto rounded-l-3xl border-2 border-r-0
+          border-white md:w-[30%] lg:w-[25%]"
+          >
             {!sexSelection ? (
               <>
                 <button
@@ -340,22 +347,23 @@ const Configurator = () => {
                     {selectedPart} ITEMS
                   </h1>
                   {partsOptions[selectedPart] && (
-                    <div className="my-4 ml-2 flex items-center justify-between gap-4">
+                    <div className="my-4 ml-2 flex flex-col items-center justify-between gap-4 lg:flex-row">
                       <HiArrowLeft
-                        size={40}
-                        className="cursor-pointer duration-100 ease-linear hover:scale-110"
+                        className="h-6 w-6 cursor-pointer duration-100 ease-linear hover:scale-110"
                         onClick={() => {
                           handlePrevItem();
                           resestColorSelect();
                         }}
                       />
-                      {
-                        partsOptions[selectedPart][selectedIndex[selectedPart]]
-                          .name
-                      }
+                      <div className="flex w-[80%] justify-center">
+                        {
+                          partsOptions[selectedPart][
+                            selectedIndex[selectedPart]
+                          ].name
+                        }
+                      </div>
                       <HiArrowRight
-                        size={40}
-                        className="cursor-pointer duration-100 ease-linear hover:scale-110"
+                        className="h-6 w-6 cursor-pointer duration-100 ease-linear hover:scale-110"
                         onClick={() => {
                           handleNextItem();
                           resestColorSelect();

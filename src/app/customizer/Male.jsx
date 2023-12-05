@@ -35,13 +35,12 @@ export default function Male(props) {
     feetSelectedColor,
   } = useConfigurator();
 
-
   useEffect(() => {
     if (headItem === "1") {
       materials.Wolf3D_Headwear.color.set = new Three.Color(headSelectedColor);
     }
   }, [headItem, headSelectedColor, materials]);
-  
+
   useEffect(() => {
     if (glassesItem === "1") {
       materials.Wolf3D_Glasses.color = new Three.Color(glassesSelectedColor);
@@ -49,9 +48,9 @@ export default function Male(props) {
   }, [glassesItem, glassesSelectedColor, materials]);
 
   useEffect(() => {
-    if(torsoItem === "1") {
+    if (torsoItem === "1") {
       materials.Wolf3D_Outfit_Top_2.color = new Three.Color(torsoSelectedColor);
-    } else if(torsoItem === "2") {
+    } else if (torsoItem === "2") {
       materials.Wolf3D_Outfit_Top.color = new Three.Color(torsoSelectedColor);
     }
   }, [torsoSelectedColor, torsoItem, materials]);
@@ -60,15 +59,21 @@ export default function Male(props) {
     if (legsItem === "1") {
       materials.Wolf3D_Outfit_Bottom.color = new Three.Color(legsSelectedColor);
     } else if (legsItem === "2") {
-      materials.Wolf3D_Outfit_Bottom_2.color = new Three.Color(legsSelectedColor);
+      materials.Wolf3D_Outfit_Bottom_2.color = new Three.Color(
+        legsSelectedColor,
+      );
     }
   }, [legsItem, legsSelectedColor, materials]);
-  
+
   useEffect(() => {
     if (feetItem === "1") {
-      materials.Wolf3D_Outfit_Footwear.color = new Three.Color(feetSelectedColor);
+      materials.Wolf3D_Outfit_Footwear.color = new Three.Color(
+        feetSelectedColor,
+      );
     } else if (feetItem === "2") {
-      materials.Wolf3D_Outfit_Footwear_2.color = new Three.Color(feetSelectedColor);
+      materials.Wolf3D_Outfit_Footwear_2.color = new Three.Color(
+        feetSelectedColor,
+      );
     }
   }, [feetItem, feetSelectedColor, materials]);
 
@@ -240,4 +245,5 @@ export default function Male(props) {
   );
 }
 
-useGLTF.preload("/male.glb");
+useGLTF.preload("composite_male.glb");
+useFBX.preload("standing.fbx");

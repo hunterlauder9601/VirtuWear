@@ -35,7 +35,7 @@ export default async function ProductPage({
       <div className="mt-[64px] flex h-full w-full flex-col items-center justify-center gap-4 p-4 xl:flex-row">
         <div className="flex h-full flex-col items-center justify-center">
           <div className="carousel w-full min-w-[35vw]">
-            {product.imageUrl.map((img, index) => (
+            {product.imageUrl.map((img: string, index: number) => (
               <div
                 id={`item${index}`}
                 key={index}
@@ -68,7 +68,7 @@ export default async function ProductPage({
             ))}
           </div>
           <div className="flex w-full justify-center gap-2 py-2">
-            {product.imageUrl.map((img, index) => (
+            {product.imageUrl.map((img: string, index: number) => (
               <a href={`#item${index}`} className="btn btn-sm" key={index}>
                 {index + 1}
               </a>

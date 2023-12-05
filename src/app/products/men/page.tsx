@@ -3,6 +3,10 @@ import { getClothingItems, productCount } from "@/lib/dbMethods";
 import Link from "next/link";
 import PaginationBar from "@/components/PaginationBar";
 
+export const metadata = {
+  title: "Men's Products - VirtuWear",
+};
+
 interface MensProductsProps {
   searchParams: { group: string; page: string };
 }
@@ -40,7 +44,7 @@ export default async function MensProducts({
           ))}
         </div>
         <div className="my-4 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {products.map((item) => (
+          {products.map((item : any) => (
             <ProductCard key={item.id} product={item} />
           ))}
         </div>

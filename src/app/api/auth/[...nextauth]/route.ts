@@ -19,12 +19,17 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     session({ session, user }) {
       session.user.id = user.id;
+      session.user.role = user.role;
       return session;
     },
   },
   events: {
     async signIn({ user }) {
-      await mergeAnonymousCartIntoUserCart(user.id);
+      if (user.id) {
+        await mergeAnonymousCartIntoUserCart(user.id);
+      } else {
+        console.error("User ID is undefined during signIn event");
+      }
     },
   },
 };

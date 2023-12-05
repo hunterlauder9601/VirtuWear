@@ -240,4 +240,5 @@ export default function Female(props) {
   );
 }
 
-useGLTF.preload("/female1.glb");
+useGLTF.preload("composite_female.glb");
+useFBX.preload("standing_f.fbx");
