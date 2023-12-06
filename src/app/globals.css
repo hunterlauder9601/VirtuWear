@@ -10,4 +10,6 @@
   @apply py-2 px-4 bg-primary text-neutral rounded-3xl hover:bg-primary-focus hover:scale-105 transition-all ease-in mb-4 font-bold text-lg shadow-lg
 }
 
-
+.ccButtonCancel {
+  @apply py-2 px-4 bg-gray-400 text-neutral rounded-3xl hover:bg-gray-500 hover:scale-105 transition-all ease-in mb-4 font-bold text-lg shadow-lg
+}

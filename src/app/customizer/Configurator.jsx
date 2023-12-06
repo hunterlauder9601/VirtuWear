@@ -44,6 +44,7 @@ const Configurator = () => {
     LEGS: 0,
     FEET: 0,
   });
+  const [isCheckoutLoading, setCheckoutLoading] = useState(false);
 
   useEffect(() => {
     if (sexSelection) {
@@ -272,9 +273,9 @@ const Configurator = () => {
             </div>
           )}
           <div
-            className="scrollbar scrollbar-thumb-neutral scrollbar-track-white pointer-events-auto flex h-fit max-h-[75%] w-[40%] 
-          flex-col overflow-y-auto rounded-l-3xl border-2 border-r-0
-          border-white md:w-[30%] lg:w-[25%]"
+            className="pointer-events-auto flex h-fit max-h-[75%] w-[40%] flex-col overflow-y-auto rounded-l-3xl 
+          border-2 border-r-0 border-white scrollbar scrollbar-track-white
+          scrollbar-thumb-neutral md:w-[30%] lg:w-[25%]"
           >
             {!sexSelection ? (
               <>
@@ -309,14 +310,45 @@ const Configurator = () => {
                   <HiReply size={20} />
                   <span>Go Back</span>
                 </button>
-                <button
-                  onClick={() => {
-                    handleCheckOut();
-                  }}
-                  className="py-6 text-xl font-bold tracking-wider text-accent hover:bg-neutral/25"
+
+                {/* CHECKOUT MODAL */}
+                <label
+                  htmlFor="my_modal"
+                  className="cursor-pointer py-6 text-center text-xl font-bold tracking-wider text-accent hover:bg-neutral/25"
                 >
                   CHECKOUT
-                </button>
+                </label>
+                <input type="checkbox" id="my_modal" className="modal-toggle" />
+                <div className="modal" role="dialog">
+                  <div className="modal-box flex flex-col items-center gap-4">
+                    <h2 className="mt-4 text-xl font-bold">Confirm Checkout</h2>
+                    <p className="text-lg">Are you sure you want to proceed to checkout?</p>
+                    <div className="flex items-center justify-center gap-1 md:gap-4 flex-col md:flex-row">
+                      <div className="modal-action mt-0">
+                        <label
+                          htmlFor="my_modal"
+                          className="ccButtonCancel btn"
+                        >
+                          CANCEL
+                        </label>
+                      </div>
+                      <button
+                        onClick={() => {
+                          setCheckoutLoading(true);
+                          handleCheckOut();
+                        }}
+                        className="ccButtonMain btn"
+                      >
+                        CHECKOUT
+                        {isCheckoutLoading && (
+                          <span className="loading loading-spinner" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                  <label className="modal-backdrop" htmlFor="my_modal"></label>
+                </div>
+
                 {categoryOrder.map(
                   (category) =>
                     partsOptions[category] && (
