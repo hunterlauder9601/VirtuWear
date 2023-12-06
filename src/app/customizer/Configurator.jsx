@@ -5,8 +5,6 @@ import { getAllClothes } from "@/lib/dbMethods";
 import { incrementProductQuantity } from "../products/[id]/serverActions";
 import { useRouter } from "next/navigation";
 
-const domain = "http://localhost:3000";
-
 const Configurator = () => {
   const {
     sexSelection,
@@ -439,7 +437,7 @@ const Configurator = () => {
                     <div className="mb-4">
                       <a
                         target="_blank"
-                        href={`${domain}/products/${
+                        href={`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}products/${
                           partsOptions[selectedPart]?.[
                             selectedIndex[selectedPart]
                           ].id
