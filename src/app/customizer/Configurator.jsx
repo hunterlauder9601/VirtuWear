@@ -4,6 +4,7 @@ import { useConfigurator } from "@/contexts/Customization";
 import { getAllClothes } from "@/lib/dbMethods";
 import { incrementProductQuantity } from "../products/[id]/serverActions";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Configurator = () => {
   const {
@@ -320,8 +321,10 @@ const Configurator = () => {
                 <div className="modal" role="dialog">
                   <div className="modal-box flex flex-col items-center gap-4">
                     <h2 className="mt-4 text-xl font-bold">Confirm Checkout</h2>
-                    <p className="text-lg">Are you sure you want to proceed to checkout?</p>
-                    <div className="flex items-center justify-center gap-1 md:gap-4 flex-col md:flex-row">
+                    <p className="text-lg">
+                      Are you sure you want to proceed to checkout?
+                    </p>
+                    <div className="flex flex-col items-center justify-center gap-1 md:flex-row md:gap-4">
                       <div className="modal-action mt-0">
                         <label
                           htmlFor="my_modal"
@@ -435,18 +438,18 @@ const Configurator = () => {
                   {partsOptions[selectedPart]?.[selectedIndex[selectedPart]]
                     .id && (
                     <div className="mb-4">
-                      <a
-                        target="_blank"
-                        href={`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}products/${
+                      <Link
+                        href={`products/${
                           partsOptions[selectedPart]?.[
                             selectedIndex[selectedPart]
                           ].id
                         }`}
-                        rel="noopener noreferrer"
+                        target="_blank"
                         className="text-xl font-bold tracking-wider underline"
+                        rel="noopener noreferrer"
                       >
                         Check Out Real Product
-                      </a>
+                      </Link>
                     </div>
                   )}
                 </div>

@@ -3,7 +3,7 @@ import ActiveLink from "./activeLink";
 import DropDown from "./DropDown";
 import UserMenuButton from "./UserMenuButton";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { getCart } from "@/lib/cartDBmethods";
 import ShoppingCartButton from "./ShoppingCartButton";
 
