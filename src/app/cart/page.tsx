@@ -11,7 +11,7 @@ export default async function CartPage() {
   const cart = await getCart();
 
   return (
-    <div className="flex max-h-fit min-h-screen w-full flex-col items-center justify-center bg-base-100 text-white text-lg">
+    <div className="flex max-h-fit min-h-screen w-full flex-col items-center justify-center bg-base-100 text-lg text-white">
       <div className="mt-[64px] flex h-full w-full flex-col items-center justify-center gap-4 p-4">
         <h1 className="mb-6 text-3xl font-bold">Shopping Cart</h1>
         <div>

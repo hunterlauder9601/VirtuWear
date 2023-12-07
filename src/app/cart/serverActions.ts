@@ -4,10 +4,16 @@ import { createCart, getCart } from "@/lib/cartDBmethods";
 import prismaBase from "@/lib/db/prisma";
 import { revalidatePath } from "next/cache";
 
-export async function setProductQuantity(productId: string, quantity: number, color: string) {
+export async function setProductQuantity(
+  productId: string,
+  quantity: number,
+  color: string,
+) {
   const cart = (await getCart()) ?? (await createCart());
 
-  const articleInCart = cart.items.find((item) => item.productId === productId && item.color === color);
+  const articleInCart = cart.items.find(
+    (item) => item.productId === productId && item.color === color,
+  );
 
   if (quantity === 0) {
     if (articleInCart) {
@@ -41,7 +47,7 @@ export async function setProductQuantity(productId: string, quantity: number, co
             create: {
               productId,
               quantity,
-              color
+              color,
             },
           },
         },

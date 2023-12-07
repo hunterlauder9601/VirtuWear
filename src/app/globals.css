@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 .navBarButton {
-  @apply pb-2 px-2 border-b-2 border-neutral text-white hover:border-primary hover:text-primary rounded-sm transition-all duration-150 ease-linear
+  @apply rounded-sm border-b-2 border-neutral px-2 pb-2 text-white transition-all duration-150 ease-linear hover:border-primary hover:text-primary;
 }
 
 .ccButtonMain {
-  @apply py-2 px-4 bg-primary text-neutral rounded-3xl hover:bg-primary-focus hover:scale-105 transition-all ease-in mb-4 font-bold text-lg shadow-lg
+  @apply mb-4 rounded-3xl bg-primary px-4 py-2 text-lg font-bold text-neutral shadow-lg transition-all ease-in hover:scale-105 hover:bg-primary-focus;
 }
 
 .ccButtonCancel {
-  @apply py-2 px-4 bg-gray-400 text-neutral rounded-3xl hover:bg-gray-500 hover:scale-105 transition-all ease-in mb-4 font-bold text-lg shadow-lg
+  @apply mb-4 rounded-3xl bg-gray-400 px-4 py-2 text-lg font-bold text-neutral shadow-lg transition-all ease-in hover:scale-105 hover:bg-gray-500;
 }

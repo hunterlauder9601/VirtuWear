@@ -8,11 +8,15 @@ import { useTransition } from "react";
 
 interface CartEntryProps {
   cartItem: CartItemWithProduct;
-  setProductQuantity: (productId: string, quantity: number, color: string) => Promise<void>;
+  setProductQuantity: (
+    productId: string,
+    quantity: number,
+    color: string,
+  ) => Promise<void>;
 }
 
 export default function CartEntry({
-  cartItem: { product, quantity, color},
+  cartItem: { product, quantity, color },
   setProductQuantity,
 }: CartEntryProps) {
   const [isPending, startTransition] = useTransition();
@@ -22,13 +26,13 @@ export default function CartEntry({
     quantityOptions.push(
       <option value={i} key={i}>
         {i}
-      </option>
+      </option>,
     );
   }
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-col md:flex-row md:items-center gap-3">
         <Image
           src={product.imageUrl[0]}
           alt={product.name}
@@ -41,14 +45,21 @@ export default function CartEntry({
             {product.name}
           </Link>
           <div>Price: {formatMoney(product.price)}</div>
-          <div className="flex items-center">Color: 
-            {color ? <div className="w-6 h-4 border border-white inline-block ml-2" style={{backgroundColor: color}}></div>
-            : <span className="ml-1">Default</span>}
+          <div className="flex items-center">
+            Color:
+            {color ? (
+              <div
+                className="ml-2 inline-block h-4 w-6 border border-white"
+                style={{ backgroundColor: color }}
+              ></div>
+            ) : (
+              <span className="ml-1">Default</span>
+            )}
           </div>
           <div className="my-1 flex items-center gap-2">
             Quantity:
             <select
-              className="select-bordered select w-full max-w-[80px]"
+              className="select select-bordered w-full max-w-[80px]"
               defaultValue={quantity}
               onChange={(e) => {
                 const newQuantity = parseInt(e.currentTarget.value);

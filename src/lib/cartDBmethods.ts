@@ -110,7 +110,7 @@ export async function mergeAnonymousCartIntoUserCart(userId: string) {
               data: mergedCartItems.map((item) => ({
                 productId: item.productId,
                 quantity: item.quantity,
-                color: item.color
+                color: item.color,
               })),
             },
           },
@@ -125,7 +125,7 @@ export async function mergeAnonymousCartIntoUserCart(userId: string) {
               data: localCart.items.map((item) => ({
                 productId: item.productId,
                 quantity: item.quantity,
-                color: item.color
+                color: item.color,
               })),
             },
           },
@@ -143,7 +143,9 @@ export async function mergeAnonymousCartIntoUserCart(userId: string) {
 function mergeCartItems(...cartItems: CartItem[][]): CartItem[] {
   return cartItems.reduce((acc, items) => {
     items.forEach((item) => {
-      const existingItem = acc.find((i) => i.productId === item.productId && i.color === item.color);
+      const existingItem = acc.find(
+        (i) => i.productId === item.productId && i.color === item.color,
+      );
       if (existingItem) {
         existingItem.quantity += item.quantity;
       } else {

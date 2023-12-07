@@ -57,9 +57,6 @@ export const getClothingItems = async (
       return JSON.parse(cached);
     }
 
-    // const whereCondition =
-    //   clothesCategory === "all" ? { category } : { category, clothesCategory };
-
     let whereCondition;
 
     if (clothesCategory === "all") {

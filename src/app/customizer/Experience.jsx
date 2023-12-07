@@ -1,15 +1,13 @@
 import { MeshReflectorMaterial, OrbitControls } from "@react-three/drei";
 import { useConfigurator } from "@/contexts/Customization";
-import { Suspense, useRef, useEffect, useState} from "react";
+import { Suspense, useRef, useEffect } from "react";
 import Male from "./Male";
 import Female from "./Female";
 import TWEEN from "@tweenjs/tween.js";
 import { useFrame, useThree } from "@react-three/fiber";
 import { DoubleSide } from "three";
 
-
-
-const Experience = ( {setIsTransitioning } ) => {
+const Experience = ({ setIsTransitioning }) => {
   const { camera } = useThree();
   const { selectedPart, sexSelection } = useConfigurator();
   const controlsRef = useRef();
@@ -63,7 +61,6 @@ const Experience = ( {setIsTransitioning } ) => {
       .easing(TWEEN.Easing.Cubic.Out)
       .onComplete(() => setIsTransitioning(false))
       .start();
-
   }, [selectedPart, controlsRef, camera.position]);
 
   useEffect(() => {
@@ -89,9 +86,7 @@ const Experience = ( {setIsTransitioning } ) => {
             <Female />
           ) : sexSelection === "men" ? (
             <Male />
-          ) : (
-            null
-          )}
+          ) : null}
         </Suspense>
       </group>
 

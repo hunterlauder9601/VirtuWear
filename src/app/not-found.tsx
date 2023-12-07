@@ -1,10 +1,14 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col h-screen w-full items-center justify-center gap-8">
-      <h1 className="text-xl text-error p-4 bg-neutral font-bold mt-[64px]">PAGE NOT FOUND :/</h1>
-      <Link href="/" className='btn ccButtonMain'>Back To Homepage</Link>
+    <div className="flex h-screen w-full flex-col items-center justify-center gap-8">
+      <h1 className="mt-[64px] bg-neutral p-4 text-xl font-bold text-error">
+        PAGE NOT FOUND :/
+      </h1>
+      <Link href="/" className="ccButtonMain btn">
+        Back To Homepage
+      </Link>
     </div>
   );
 }

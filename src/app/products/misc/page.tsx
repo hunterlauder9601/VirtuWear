@@ -30,7 +30,7 @@ export default async function MiscProducts({
           MISC PRODUCTS
         </h1>
         <div className="my-4 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {products.map((item : any) => (
+          {products.map((item: any) => (
             <ProductCard key={item.id} product={item} />
           ))}
         </div>

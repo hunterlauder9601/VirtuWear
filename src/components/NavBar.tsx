@@ -27,7 +27,7 @@ const NavBar = async () => {
             <UserMenuButton session={session} />
             <ShoppingCartButton cart={cart} />
           </div>
-          <div className="md:hidden items-end justify-center gap-6 text-lg text-white flex">
+          <div className="flex items-end justify-center gap-6 text-lg text-white md:hidden">
             <div className="dropdown relative hover:text-primary">
               <label tabIndex={0} className="btn btn-circle btn-ghost">
                 <svg
@@ -47,16 +47,19 @@ const NavBar = async () => {
               </label>
               <ul
                 tabIndex={0}
-                className="menu dropdown-content rounded-box z-[1] w-52 bg-neutral p-2 shadow right-0 origin-top-right"
+                className="menu dropdown-content rounded-box right-0 z-[1] w-52 origin-top-right bg-neutral p-2 shadow"
               >
                 <li>
-                  <a>MEN&apos;S</a>
+                  <Link href="/customizer">CUSTOMIZER</Link>
                 </li>
                 <li>
-                  <a>WOMEN&apos;S</a>
+                  <Link href="/products/men">MEN&apos;S</Link>
                 </li>
                 <li>
-                  <a>MISC</a>
+                  <Link href="/products/women">WOMEN&apos;S</Link>
+                </li>
+                <li>
+                  <Link href="/products/misc">MISC</Link>
                 </li>
               </ul>
             </div>

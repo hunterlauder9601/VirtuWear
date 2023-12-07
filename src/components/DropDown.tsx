@@ -16,7 +16,7 @@ const DropDown = ({
     <div
       className={
         isActive
-          ? " dropdown dropdown-hover border-primary text-primary pb-2 px-2 border-b-2 rounded-sm transition-all duration-150 ease-linear"
+          ? " dropdown dropdown-hover rounded-sm border-b-2 border-primary px-2 pb-2 text-primary transition-all duration-150 ease-linear"
           : "navBarButton dropdown dropdown-hover"
       }
     >
@@ -25,7 +25,7 @@ const DropDown = ({
       </Link>
       <ul
         tabIndex={0}
-        className="mt-[10px] menu dropdown-content rounded-box z-[1] w-52 bg-neutral p-2 shadow"
+        className="menu dropdown-content rounded-box z-[1] mt-[10px] w-52 bg-neutral p-2 shadow"
       >
         <li>
           <Link href="/products/men">MEN&apos;S</Link>

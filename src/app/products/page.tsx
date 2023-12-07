@@ -12,10 +12,16 @@ const Products = async () => {
           Products
         </h1>
 
-        <div className="my-4 flex items-center justify-center flex-col md:flex-row gap-4">
-          <Link href={'/products/men'} className="btn ccButtonMain">MEN&apos;S</Link>
-          <Link href={'/products/women'} className="btn ccButtonMain">WOMEN&apos;S</Link>
-          <Link href={'/products/misc'} className="btn ccButtonMain">MISC</Link>
+        <div className="my-4 flex flex-col items-center justify-center gap-4 md:flex-row">
+          <Link href={"/products/men"} className="ccButtonMain btn">
+            MEN&apos;S
+          </Link>
+          <Link href={"/products/women"} className="ccButtonMain btn">
+            WOMEN&apos;S
+          </Link>
+          <Link href={"/products/misc"} className="ccButtonMain btn">
+            MISC
+          </Link>
         </div>
       </div>
     </div>

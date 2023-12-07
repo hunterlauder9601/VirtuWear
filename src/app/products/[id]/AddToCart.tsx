@@ -6,7 +6,10 @@ import { useState, useTransition } from "react";
 interface AddToCartButtonProps {
   productId: string;
   colors: string[];
-  incrementProductQuantity: (productId: string, selectedColor: string) => Promise<void>;
+  incrementProductQuantity: (
+    productId: string,
+    selectedColor: string,
+  ) => Promise<void>;
 }
 
 export default function AddToCartButton({
@@ -25,7 +28,7 @@ export default function AddToCartButton({
   return (
     <>
       <h1 className="text-xl font-bold tracking-wider">Color Options:</h1>
-      <div className="mt-4 mb-8 grid gap-2 grid-cols-4 w-1/2 justify-items-center">
+      <div className="mb-8 mt-4 grid w-1/2 grid-cols-4 justify-items-center gap-2">
         {colors?.map((color) => (
           <ColorBox
             key={color}
@@ -37,7 +40,7 @@ export default function AddToCartButton({
       </div>
       <div className="flex items-center gap-2">
         <button
-          className="btn ccButtonMain"
+          className="ccButtonMain btn"
           onClick={() => {
             setSuccess(false);
             startTransition(async () => {

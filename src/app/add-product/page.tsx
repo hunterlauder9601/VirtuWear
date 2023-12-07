@@ -4,7 +4,7 @@ import { ProtectedAddProduct } from "./ProtectedAddProduct";
 
 const page = async () => {
   await protectPath();
-  return <ProtectedAddProduct/>;
+  return <ProtectedAddProduct />;
 };
 
 export default page;

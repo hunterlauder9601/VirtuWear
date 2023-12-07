@@ -50,7 +50,10 @@ export default async function Home({
               <h2 className="z-10 text-2xl font-bold">
                 <TypewriterTitle />
               </h2>
-              <Link href="/customizer" className="z-10 ccButtonMain btn border-0 mt-8">
+              <Link
+                href="/customizer"
+                className="ccButtonMain btn z-10 mt-8 border-0"
+              >
                 Try 3D Customizer
               </Link>
             </div>
@@ -81,9 +84,11 @@ export default async function Home({
         )}
 
         <div className="my-4 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {(currentPage === 1 ? products.slice(1) : products).map((product : any) => (
-            <ProductCard product={product} key={product.id} />
-          ))}
+          {(currentPage === 1 ? products.slice(1) : products).map(
+            (product: any) => (
+              <ProductCard product={product} key={product.id} />
+            ),
+          )}
         </div>
 
         {totalPages > 1 && (

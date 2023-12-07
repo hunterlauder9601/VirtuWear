@@ -55,7 +55,7 @@ export default function Female(props) {
     if (legsItem === "1") {
       materials.Wolf3D_Outfit_Bottom.color = new Three.Color(legsSelectedColor);
     } else if (legsItem === "2") {
-        materials["Wolf3D_Outfit_Bottom.001"].color = new Three.Color(
+      materials["Wolf3D_Outfit_Bottom.001"].color = new Three.Color(
         legsSelectedColor,
       );
     }
