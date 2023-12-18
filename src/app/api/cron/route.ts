@@ -11,7 +11,11 @@ export async function GET() {
     });
 
     console.log(`Deleted ${deletedCarts.count} carts.`);
+
+    return Response.json({ message: `Deleted ${deletedCarts.count} carts.` });
   } catch (error) {
     console.error("Failed to delete carts:", error);
+
+    return Response.json({ error: "Failed to delete carts" });
   }
 }
