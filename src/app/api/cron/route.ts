@@ -1,6 +1,6 @@
-import prisma from "../db/prisma";
+import prisma from "../../../lib/db/prisma";
 
-export default async function cleanUpCarts() {
+export async function GET() {
   const threeDaysAgo = new Date(new Date().getTime() - 72 * 60 * 60 * 1000);
 
   try {

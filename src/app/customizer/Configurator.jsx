@@ -272,7 +272,7 @@ const Configurator = () => {
             </div>
           )}
           <div
-            className="pointer-events-auto flex h-fit max-h-[75%] w-[40%] flex-col overflow-y-auto rounded-l-3xl 
+            className="pointer-events-auto flex h-fit max-h-[75%] w-[40%] flex-col overflow-y-auto overflow-x-clip rounded-l-3xl 
           border-2 border-r-0 border-white scrollbar scrollbar-track-white
           scrollbar-thumb-neutral md:w-[30%] lg:w-[25%]"
           >
