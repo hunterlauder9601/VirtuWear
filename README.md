@@ -13,10 +13,10 @@ My journey with VirtuWear began with a clear vision: to revolutionize the online
 By addressing these questions and challenges, VirtuWear aims to create a unique and superior online shopping experience that caters to the modern consumer’s needs. With its innovative 3D outfit configurator and robust backend, VirtuWear is not just a platform; it’s a solution to the gaps and limitations in the current e-commerce landscape.
 
 ## Quick Start
-# Explore the Live Demo
+### Explore the Live Demo
 Navigate to [VirtuWear Live Demo](https://ecommerce-project-liard.vercel.app/) to experience the interactive 3D outfit configurator and explore the user-friendly interface of the platform.
 ## Usage
-# Key Features:
+### Key Features:
 * 3D Outfit Configurator: Step into the future of fashion with the 3D Outfit Configurator. This feature allows you to visualize, mix, and match clothing items in a realistic 3D environment. Make informed fashion choices and add items directly to your cart with a single click.
 
 * Seamless Shopping Experience: Experience a smooth and responsive shopping journey, thanks to Next.js server components and Server-Side Rendering (SSR) integration. This advanced technology ensures quick interactions and an efficient browsing experience.
@@ -26,14 +26,14 @@ Navigate to [VirtuWear Live Demo](https://ecommerce-project-liard.vercel.app/) t
 * Robust Database Management and Secure Authentication: VirtuWear leverages TypeScript, Next.js Server Actions, Prisma ORM, MongoDB Atlas, and Redis for efficient and secure data management. Authentication is streamlined with Next Auth Google provider, ensuring safe and private user sessions.
 
 ## Contributing
-# Set Up the Development Environment
+### Set Up the Development Environment
 Clone the repository and install dependencies:
 ```
 git clone https://github.com/hunterlauder9601/VirtuWear.git
 cd virtuwear
 npm install
 ```
-# Run the Platform Locally:
+### Run the Platform Locally:
 `npm run dev`
-# Contributing to VirtuWear
+### Contributing to VirtuWear
 Contributions are welcome! If you have ideas or code to share, please fork the repository and submit a pull request to the main branch with your enhancements.
