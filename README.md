@@ -33,8 +33,10 @@ git clone https://github.com/hunterlauder9601/VirtuWear.git
 cd virtuwear
 ```
 2. Install Dependencies:
-`npm install`
-3. Environment Variables:
+```
+npm install
+```
+4. Environment Variables:
 VirtuWear requires certain environment variables, stored in a .env file. Create this file at the root of the project and include the following variables:
 * DATABASE_URL: URL to your MongoDB instance.
 * REDIS_URL: URL to your Redis instance.
@@ -58,6 +60,8 @@ NEXTAUTH_SECRET="your_nextauth_secret"
 * NextAuth Setup: NEXTAUTH_URL should be the URL where your local or deployed Next.js app is running. NEXTAUTH_SECRET can be any long, secure string - you can generate one using an online tool.
 **Note:** Do not use the example values for a production environment. Obtain your credentials for security and functionality.
 5. Run the Platform Locally:
-`npm run dev`
+```
+npm run dev
+```
 ### Contributing to VirtuWear
 Contributions are welcome! If you have ideas or code to share, please fork the repository and submit a pull request to the main branch with your enhancements.
